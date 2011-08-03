@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 from videos import get_version
 setup(
-    name = "django-videos",
+    name = "incuna-videos",
     packages = find_packages(),
     include_package_data=True,
     install_requires=[
