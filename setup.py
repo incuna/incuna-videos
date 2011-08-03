@@ -5,6 +5,9 @@ setup(
     name = "django-videos",
     packages = find_packages(),
     include_package_data=True,
+    install_requires=[
+        "django-incuna>=2.0",
+    ],
     version = get_version(),
     description = "Generic extensible video content.",
     author = "Incuna Ltd",
