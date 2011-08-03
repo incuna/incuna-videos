@@ -1,0 +1,15 @@
+{% extends "videos/base.html" %}
+
+{% load thumbnail %}
+{% block video-content %}
+
+<ul>
+    {% for video in video_list %}
+    <li>
+        {% if video.preview %}{% thumbnail video.preview "166x92" as im %}<a href="{% url videos_detail slug=video.slug %}"><img src="{{ im.url }}" ></a>{% endthumbnail %}{% endif %} 
+        <h3><a href="{% url videos_detail slug=video.slug %}">{{ video.title }}</a></h3>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock video-content %}
