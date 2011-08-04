@@ -1,8 +1,9 @@
-{% with chapters=video.chapter_set.all %}
+{% with chapters=video.chapter_set.all sources=video.source_set.all first_source=sources|first %}
+<div class="video-content">
 <h3>{{ video.title }}</h3>
 <video controls>
-    {% for source in video.source_set.all %}<source src="{{ source.file.url }}"  type='{{ source.type }}'>{% endfor %}
-    Your browser does not support the video tag.
+    {% for source in sources %}<source src="{{ source.file.url }}"  type='{{ source.type }}'>{% endfor %}
+    {% with source=sources|first %}<a href="{{ source.file.url }}" >Download video</a>{% endwith %}
 </video>
 {% if chapters %}
 <div class="chapters">
@@ -14,4 +15,5 @@
 </div>
 {% endif %}
 {% if video.recorded %}Date: {{ video.recorded|date }}{% endif %}
+</div>
 {% endwith %}
