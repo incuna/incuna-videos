@@ -2,7 +2,7 @@
 
 {% load thumbnail %}
 {% block video-content %}
-<ul>
+<ul id="video-list">
     {% for video in video_list %}
     <li>
         {% with chapters=video.chapter_set.all speakers=video.speakers.all %}
