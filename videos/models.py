@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
@@ -6,9 +6,14 @@ from incuna.db.models import AutoSlugField
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from incuna.utils.timesince import timesince
 from incuna.utils import find
-
 from incuna.utils.extensions import ExtensionsMixin
+
+
+class VideoManager(models.Manager):
+    def latest(self, limit=getattr(settings, 'VIDEOS_LATEST_LIMIT',3)):
+        return self.get_query_set()[:limit]
 
 class Video(models.Model, ExtensionsMixin):
     """
@@ -20,10 +25,19 @@ class Video(models.Model, ExtensionsMixin):
     preview = models.FileField(max_length=255, upload_to='videos/preview', null=True, blank=True, help_text=_('Preview image for this video.'))
     length = models.TimeField(blank=True, null=True, help_text='hh:mm:ss')
     recorded = models.DateField(blank=True, null=True)
-    created = models.DateTimeField(editable=False, default=datetime.now)
+    created = models.DateTimeField(editable=False, default=datetime.datetime.now)
+
+    objects = VideoManager()
+
+    class Meta:
+        ordering = ('created',)
 
     def __unicode__(self):
         return self.title
+
+    @property
+    def length_display(self):
+        return timesince(datetime.time(0, 0, 0), self.length)
 
     @classmethod
     def register_extension(cls, register_fn):

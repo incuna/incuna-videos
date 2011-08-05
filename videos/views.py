@@ -7,13 +7,11 @@ def videos_list(request, template="videos/list.html", queryset=None, extra_conte
     if queryset is None:
         queryset = Video.objects.all()
 
-
     context = RequestContext(request)
 
     context.update({
         'video_list': queryset,
     })
-    print "videos_list", queryset
 
     if extra_context:
         context.update(extra_context)

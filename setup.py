@@ -6,7 +6,7 @@ setup(
     packages = find_packages(),
     include_package_data=True,
     install_requires=[
-        "django-incuna>=2.0",
+        "django-incuna>=2.1",
     ],
     version = get_version(),
     description = "Generic extensible video content.",

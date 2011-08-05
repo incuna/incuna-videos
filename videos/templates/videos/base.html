@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% block video-nav %}
+{% menuitems 'videos-menu' %} 
+	{% navitem 'videos_latest' %}Latest videos{% endnavitem %}
+    {% navitem 'videos_all' %}View all{% endnavitem %}
+{% endmenuitems %}
+{% endblock video-nav %}
 {% block video-content %}{% endblock video-content %}
 {% endblock content %}

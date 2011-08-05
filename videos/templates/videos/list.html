@@ -2,12 +2,24 @@
 
 {% load thumbnail %}
 {% block video-content %}
-
 <ul>
     {% for video in video_list %}
     <li>
-        {% if video.preview %}{% thumbnail video.preview "166x92" as im %}<a href="{% url videos_detail slug=video.slug %}"><img src="{{ im.url }}" ></a>{% endthumbnail %}{% endif %} 
+        {% with chapters=video.chapter_set.all speakers=video.speakers.all %}
+        {% if video.length %}<span class="video-length"><strong>{{ video.length_display }}</strong></span>{% endif %}
         <h3><a href="{% url videos_detail slug=video.slug %}">{{ video.title }}</a></h3>
+        {% if speakers %}<span class="video-speakers">With: <strong>{% for speaker in speakers %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></span>{% endif %}
+        {% if video.preview %}{% thumbnail video.preview "166x92" as im %}<a class="video-preview" href="{% url videos_detail slug=video.slug %}"><img src="{{ im.url }}" ></a>{% endthumbnail %}{% endif %} 
+        {% if chapters %}
+        <div class="chapters">
+            <ul>
+                {% for chapter in chapters %}
+                <li><a id="chapter-{{ chapter.pk }}" href="#{{ chapter.seconds }}">{{ chapter.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
     </li>
     {% endfor %}
 </ul>

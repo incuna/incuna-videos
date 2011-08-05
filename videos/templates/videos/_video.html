@@ -1,9 +1,10 @@
-{% with chapters=video.chapter_set.all sources=video.source_set.all first_source=sources|first %}
+{% with sources=video.source_set.all first_source=sources|first chapters=video.chapter_set.all speakers=video.speakers.all %}
 <div class="video-content">
 <h3>{{ video.title }}</h3>
+{% if speakers %}<span class="video-speakers">With: <strong>{% for speaker in speakers %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></span>{% endif %}
 <video controls>
     {% for source in sources %}<source src="{{ source.file.url }}"  type='{{ source.type }}'>{% endfor %}
-    {% with source=sources|first %}<a href="{{ source.file.url }}" >Download video</a>{% endwith %}
+    {% with source=sources|first %}<a href="{{ source.file.url }}" >{% if video.preview %}<img src="{{ video.preview.url }}" >{% else %}Download video{% endif %}</a>{% endwith %}
 </video>
 {% if chapters %}
 <div class="chapters">
@@ -14,6 +15,5 @@
     </ul>
 </div>
 {% endif %}
-{% if video.recorded %}Date: {{ video.recorded|date }}{% endif %}
 </div>
 {% endwith %}
