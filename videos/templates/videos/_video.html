@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% with sources=video.source_set.all first_source=sources|first chapters=video.chapter_set.all speakers=video.speakers.all %}
 <div class="video-content">
 <h3>{{ video.title }}</h3>
@@ -10,7 +11,7 @@
 <div class="chapters">
     <ul>
         {% for chapter in chapters %}
-            <li><a id="chapter-{{ chapter.pk }}" href="#{{ chapter.seconds }}">{{ chapter.title }}</a></li>
+            <li><a id="chapter-{{ chapter.pk }}" href="#{{ chapter.seconds }}">{% if chapter.preview %}{% thumbnail chapter.preview "75x56" as im %}<img src="{{ im.url }}" >{% endthumbnail %}{% endif %}{{ chapter.title }}</a></li>
         {% endfor %}
     </ul>
 </div>

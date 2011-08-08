@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block extra_script %}
+    <script type="text/javascript" src="{{ STATIC_URL }}videos/scripts/flowplayer-3.2.6.min.js"></script>
+    {% comment %}<script type="text/javascript" src="{{ STATIC_URL }}scripts/flowplayer.ipad-3.2.2.min.js"></script>{% endcomment %}
+    <script type="text/javascript" src="{{ STATIC_URL }}incuna/script/flowplayer.plugins.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}videos/scripts/videos.js"></script>
+{% endblock extra_script %}
+
 {% block content %}
 {% block video-nav %}
 {% menuitems 'videos-menu' %} 
