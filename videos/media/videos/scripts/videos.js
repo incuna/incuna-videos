@@ -8,15 +8,8 @@ jQuery.fn.sumHeight = function() {
 }
 function initVideo(content) {
     content = content || $('body');
-    var fpconfig = {
-        "path": "/static_media/videos/flash/flowplayer.commercial-3.1.5.swf", 
-        "clip": {"scaling": "orig", "autoPlay": true}, 
-        "key": "#@c231218f702f09ba2ed", 
-        "plugins": {
-            "rtmp": {"url": "/static_media/videos/flash/flowplayer.rtmp-3.1.3.swf", "netConnectionUrl": "rtmp://s3qy90i3k86bxp.cloudfront.net/cfx/st"}, 
-            "controls": {"url": "/static_media/videos/flash/flowplayer.controls-3.1.5.swf", 'autoHide': 'always', "backgroundColor": "#000000"}
-        }
-    }; 
+    var fpconfig = Setting.get('videos-fpconfig');
+    
     content.find(".video-content").each(function () {
         var videocontent = $(this),
             video = videocontent.find("video"),
