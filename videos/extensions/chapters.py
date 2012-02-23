@@ -8,5 +8,5 @@ class ChapterInline(admin.TabularInline):
 
 def register(cls, admin_cls):
     if admin_cls:
-        admin_cls.inlines = getattr(admin_cls, 'inlines', ()) + (ChapterInline, )
+        admin_cls.inlines = list(getattr(admin_cls, 'inlines', ())) + [ChapterInline, ]
 

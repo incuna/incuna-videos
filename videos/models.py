@@ -84,7 +84,7 @@ class SourceInline(admin.TabularInline):
     formset = BaseSourceFormSet
 
 class VideoAdmin(admin.ModelAdmin):
-    inlines = (SourceInline,)
+    inlines = [SourceInline,]
     list_display = ('title', 'preview', 'created', 'recorded')
     prepopulated_fields = {"slug": ("title",)}
 

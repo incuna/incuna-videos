@@ -1,13 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from videos.models import Video
-
 class Chapter(models.Model):
     """
     Video section.
     """
-    video = models.ForeignKey(Video)
+    video = models.ForeignKey('videos.Video')
     title = models.CharField(max_length=255)
     timecode = models.TimeField(help_text='hh:mm:ss')
     preview = models.ImageField(upload_to='videos/chapter/', null=True, blank=True, help_text=_('Preview image for this chapter.'))
