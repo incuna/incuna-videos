@@ -18,7 +18,10 @@ function initVideo(content) {
         // Add flowplayer
         if ("application/x-shockwave-flash" in navigator.mimeTypes) {
             player = video.find('a:first').attr({'class': 'video'}).replaceAll(video).flowplayer(
-                fpconfig.path, fpconfig).flowplayer(0).awsrtmp();
+                fpconfig.path, fpconfig).flowplayer(0);
+            if (player) {
+                player.awsrtmp();
+            }
         
             // TODO make this a plugin
             var chapter_links = chapters.find("li a");
