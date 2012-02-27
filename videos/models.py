@@ -85,8 +85,12 @@ class SourceInline(admin.TabularInline):
 
 class VideoAdmin(admin.ModelAdmin):
     inlines = [SourceInline,]
-    list_display = ('title', 'preview', 'created', 'recorded')
+    list_display = ['title', 'preview', 'created', 'recorded']
+    search_fields = ['title',]
     prepopulated_fields = {"slug": ("title",)}
+    fieldsets = [('', {
+                    'fields': ['title', 'slug', 'preview', 'length', 'recorded',],
+                })]
 
 # Add videos specific js settings
 @receiver(collect_settings)
