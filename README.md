@@ -13,17 +13,12 @@ Before proceeding with manage.py syncdb, you must add some video extensions. The
 
 Extensions are a way to add often-used functionality the Video model. The extensions are standard python modules with a register() method which will be called upon registering the extension. The register() method receives the Video class itself and the model admin class VideoAdmin as arguments.
 
-To register extensions, simply pop a list of them in your settings.py:
-
-    PROFILE_EXTENSIONS = ('title', 'picture', 'address', 'videos.modules.options.extensions.options')
-
-For backwards compatibility, extensions can be activated by adding the following to a models.py file that will be processed anyway. eg:
+To register extensions, call Video.register_extensions from a models.py file that will be processed anyway:
 
     from videos.models import Video
-    Video.register_extensions('title', 'picture', 'address', 'videos.modules.options.extensions.options')
+    Video.register_extensions('chapters', 'speakers', 'myapp.videoextensions')
 
-
-If the extension requires it's own models (like the options extension) then the app containing the models will also need to be added to your INSTALLED_APPS.
+If the extension requires it's own models (like the chapters and speakers extension) then the app containing the models will also need to be added to your INSTALLED_APPS.
 
 ### Adding extensions
 
