@@ -47,3 +47,16 @@ Here is the address extension (videos/extensions/address.py):
 
 django-incuna
 django-settingsjs
+
+
+A VideoContent FeinCMS content type is available from incuna-feincms
+
+Example usage: 
+
+    from incunafein.content.video.models import VideoContent
+    Page.create_content_type(VideoContent, 
+                             POSITION_CHOICES=(
+                                 ('block', _('block')),
+                                 ('left', _('left')),
+                                 ('right', _('right')),
+                             ))
