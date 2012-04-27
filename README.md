@@ -45,8 +45,13 @@ Here is the address extension (videos/extensions/address.py):
 
 ### Dependencies
 
-django-incuna
-django-settingsjs
+* django-incuna
+* django-settingsjs
+
+For flowplayer integration include 'settingsjs' in your INSTALLED_APPS, 
+'settingsjs.urls' in your urls and add a script tag with src="{% url settings_js %}".
+
+    <script type="text/javascript" src="{% url settings_js %}"></script>
 
 
 A VideoContent FeinCMS content type is available from incuna-feincms

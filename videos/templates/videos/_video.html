@@ -3,7 +3,7 @@
 <div class="video-content">
 <h3>{{ video.title }}</h3>
 {% if speakers %}<span class="video-speakers">With: <strong>{% for speaker in speakers %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></span>{% endif %}
-<video controls>
+<video controls {% if video.preview %}poster="{{ video.preview.url }}"{% endif %}>
     {% for source in sources %}<source src="{{ source.file.url }}"  type='{{ source.type }}'>{% endfor %}
     {% with source=sources|first %}<a href="{{ source.file.url }}" >{% if video.preview %}<img src="{{ video.preview.url }}" >{% else %}Download video{% endif %}</a>{% endwith %}
 </video>
