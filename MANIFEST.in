@@ -1,3 +1,4 @@
+includ changelog.rst
 recursive-include */templates *.html
 recursive-include */fixtures *.json
 recursive-include */static *
