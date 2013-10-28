@@ -18,11 +18,23 @@ function initVideo(content) {
     content.find('.video-content').each(function() {
         var videocontent = $(this);
         var video = videocontent.find('video');
+        var videoLink = video.find('a:first');
         var chapters = videocontent.find('.chapters');
+        var sources = video.find('source');
+
+        // Update the anchor href with the mp4 or m4v source
+        sources.each(function() {
+            var src = $(this).attr('src');
+            var ext = src.split('.').pop();
+            if(ext === 'mp4' || ext === 'm4v') {
+                videoLink.attr('href', src);
+                return;
+            }
+        });
 
         // Add flowplayer
         if ('application/x-shockwave-flash' in navigator.mimeTypes) {
-            player = video.find('a:first').attr({'class': 'video'}).replaceAll(video).flowplayer(
+            player = videoLink.attr({'class': 'video'}).replaceAll(video).flowplayer(
                 fpconfig.path, fpconfig).flowplayer(0);
             if (player) {
                 player.awsrtmp();

@@ -11,7 +11,7 @@
 
         <video controls {% if video.preview %}poster="{{ video.preview.url }}"{% endif %}>
             {% for source in sources %}
-                <source src="{{ source.file.url }}"  type="{{ source.type }}">
+                <source src="{{ source.file.url }}" type="{{ source.type }}">
             {% endfor %}
 
             {% with source=sources|first %}
