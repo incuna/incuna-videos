@@ -6,7 +6,7 @@
     {% for video in video_list %}
     <li>
         {% with chapters=video.chapter_set.all speakers=video.speakers.all %}
-        {% url videos_detail slug=video.slug as video_detail_url %}
+        {% url 'videos_detail' slug=video.slug as video_detail_url %}
 
         {% if video.length %}<span class="video-length"><strong>{{ video.length_display }}</strong></span>{% endif %}
         <h3><a href="{{ video_detail_url }}">{{ video.title }}</a></h3>
