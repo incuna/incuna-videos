@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v0.7
+------
+
+* Convert views to use generic class based views.
+* Update templates to use new `{% url %}` format, this breaks compatibility with Django < 1.5.
+
 v0.6.2
 ------
 
