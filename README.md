@@ -55,7 +55,7 @@ For flowplayer integration include 'settingsjs' in your `INSTALLED_APPS`,
 
 add a script tag with src="{% url settings_js %}".
 
-    <script type="text/javascript" src="{% url settings_js %}"></script>
+    <script type="text/javascript" src="{% url 'settings_js' %}"></script>
 
 
 A VideoContent FeinCMS content type is available from [incuna-feincms](https://github.com/incuna/incuna-feincms)
