@@ -4,9 +4,9 @@ This is an extensible videos app for Django, designed to provide a simple Video 
 
 The concept (and some code) is borrowed from the FeinCMS (https://github.com/feincms/feincms) page model.
 
-To use the videos module add videos to your INSTALLED_APPS.
+To use the videos module add `videos` to your `INSTALLED_APPS`.
 
-Before proceeding with manage.py syncdb, you must add some video extensions. The videos module does not add anything to the User model by default.
+Before proceeding with `manage.py syncdb`, you may want to add some video extensions.
 
 
 ### Video extension modules
@@ -20,11 +20,11 @@ To register extensions, call Video.register_extensions from a models.py file tha
 
 If the extension requires it's own models (like the chapters and speakers extension) then the app containing the models will also need to be added to your INSTALLED_APPS.
 
-### Adding extensions
+### Createing extensions
 
-To add an extension create a python module that defines a register function that accepts the Video class and the VideoAdmin class as arguments and modifies them as required.
+To create an extension create a python module that defines a register function that accepts the Video class and the VideoAdmin class as arguments and modifies them as required.
 
-Here is the address extension (videos/extensions/address.py):
+Here is the **speakers** extension (`videos/extensions/speakers.py`):
 
     from django.db import models
     from django.utils.translation import ugettext_lazy as _
@@ -45,16 +45,20 @@ Here is the address extension (videos/extensions/address.py):
 
 ### Dependencies
 
-* django-incuna
-* django-settingsjs
+* [django-incuna](https://github.com/incuna/django-incuna)
+* [django-settingsjs](https://github.com/incuna/django-settingsjs)
 
-For flowplayer integration include 'settingsjs' in your INSTALLED_APPS, 
-'settingsjs.urls' in your urls and add a script tag with src="{% url settings_js %}".
+For flowplayer integration include 'settingsjs' in your `INSTALLED_APPS`, 
+'settingsjs.urls' in your urls
+
+    url(r'^settingsjs/', include('settingsjs.urls')),
+
+add a script tag with src="{% url settings_js %}".
 
     <script type="text/javascript" src="{% url settings_js %}"></script>
 
 
-A VideoContent FeinCMS content type is available from incuna-feincms
+A VideoContent FeinCMS content type is available from [incuna-feincms](https://github.com/incuna/incuna-feincms)
 
 Example usage: 
 
