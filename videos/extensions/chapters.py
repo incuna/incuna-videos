@@ -1,12 +1,17 @@
 from django.contrib import admin
 from videos.module.chapters.models import Chapter
+from feincms import extensions
+
 
 class ChapterInline(admin.TabularInline):
-    fields = ('title','timecode', 'preview')
+    fields = ('title', 'timecode', 'preview')
     model = Chapter
     extra = 1
 
-def register(cls, admin_cls):
-    if admin_cls:
-        admin_cls.inlines = list(getattr(admin_cls, 'inlines', ())) + [ChapterInline, ]
 
+class Extension(extensions.Extension):
+    def handle_model(self):
+        pass
+
+    def handle_modeladmin(self, modeladmin):
+        modeladmin.extend_list('inlines', [ChapterInline])

@@ -1,29 +1,28 @@
 import datetime
+from django import forms
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
-from incuna.db.models import AutoSlugField 
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-
-from settingsjs.signals import collect_settings
+from incuna.db.models import AutoSlugField
 from django.dispatch import receiver
-
+from django.utils.translation import ugettext_lazy as _
+from feincms.extensions import ExtensionsMixin
 from incuna.utils.timesince import timesince
 from incuna.utils import find
-from incuna.utils.extensions import ExtensionsMixin
+from settingsjs.signals import collect_settings
 
 
 class VideoManager(models.Manager):
-    def latest(self, limit=getattr(settings, 'VIDEOS_LATEST_LIMIT',3)):
+    def latest(self, limit=getattr(settings, 'VIDEOS_LATEST_LIMIT', 3)):
         return self.get_query_set()[:limit]
+
 
 class Video(models.Model, ExtensionsMixin):
     """
     Extendible video model.
     """
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(max_length=127,populate_from="title", editable=True, blank=True, unique=True,
+    slug = AutoSlugField(max_length=127, populate_from="title", editable=True, blank=True, unique=True,
                          help_text='This will be automatically generated from the title, and is used as the video\'s website address', )
     preview = models.FileField(max_length=255, upload_to='videos/preview', null=True, blank=True, help_text=_('Preview image for this video.'))
     length = models.TimeField(blank=True, null=True, help_text='hh:mm:ss')
@@ -46,12 +45,13 @@ class Video(models.Model, ExtensionsMixin):
     def register_extension(cls, register_fn):
         register_fn(cls, VideoAdmin)
 
+
 class Source(models.Model):
     """
     Video source (inspired by the HTML5 <source> tag)
     """
-    TYPE_CHOICES = getattr(settings, 
-                          'VIDEO_TYPE_CHOICES', 
+    TYPE_CHOICES = getattr(settings,
+                          'VIDEO_TYPE_CHOICES',
                           (
                               ('video/mp4; codecs="avc1.42E01E, mp4a.40.2"', 'mp4'),
                               ('video/webm; codecs="vp8, vorbis"', 'webm'),
@@ -77,42 +77,43 @@ class BaseSourceFormSet(forms.models.BaseInlineFormSet):
         if not find(lambda form: getattr(form, 'cleaned_data', None), self.forms):
             raise forms.ValidationError, 'Please specify at least one %s' % (self.model._meta.verbose_name)
 
+
 class SourceInline(admin.TabularInline):
     extra = 1
     fields = ('file', 'type')
     model = Source
     formset = BaseSourceFormSet
 
+
 class VideoAdmin(admin.ModelAdmin):
-    inlines = [SourceInline,]
+    inlines = [SourceInline]
     list_display = ['title', 'preview', 'created', 'recorded']
-    search_fields = ['title',]
+    search_fields = ['title']
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = [('', {
-                    'fields': ['title', 'slug', 'preview', 'length', 'recorded',],
+                    'fields': ['title', 'slug', 'preview', 'length', 'recorded'],
                 })]
+
 
 # Add videos specific js settings
 @receiver(collect_settings)
 def videos_settingsjs(sender, jssettings=None, **kwargs):
     if jssettings is not None:
         jssettings['videos-fpconfig'] = {
-            "path": settings.STATIC_URL+"videos/flash/flowplayer.commercial-3.1.5.swf", 
-            "clip": {"scaling": "orig", "autoPlay": True}, 
-            "key": getattr(settings, 'FLOWPLAYER_KEY', "#@c231218f702f09ba2ed"), 
+            "path": settings.STATIC_URL+"videos/flash/flowplayer.commercial-3.1.5.swf",
+            "clip": {"scaling": "orig", "autoPlay": True},
+            "key": getattr(settings, 'FLOWPLAYER_KEY', "#@c231218f702f09ba2ed"),
             "plugins": {
                 "controls": {
-                    "url": settings.STATIC_URL+"videos/flash/flowplayer.controls-3.1.5.swf", 
-                    'autoHide': 'always', 
+                    "url": settings.STATIC_URL+"videos/flash/flowplayer.controls-3.1.5.swf",
+                    'autoHide': 'always',
                     "backgroundColor": "#000000",
                 },
             },
         }
 
         if hasattr(settings, 'AWS_CLOUDFRONT_STREAMING_DOMAIN'):
-            jssettings['videos-fpconfig']['plugins']['rtmp'] ={ 
-                "url": settings.STATIC_URL+"videos/flash/flowplayer.rtmp-3.1.3.swf", 
+            jssettings['videos-fpconfig']['plugins']['rtmp'] ={
+                "url": settings.STATIC_URL+"videos/flash/flowplayer.rtmp-3.1.3.swf",
                 "netConnectionUrl": "rtmp://%s/cfx/st" % settings.AWS_CLOUDFRONT_STREAMING_DOMAIN,
             }
-
-
