@@ -1,6 +1,15 @@
 Changelog
 =========
 
+v1.0
+------
+**Backwards incompatible: may break project extensions.**
+
+* Use feincms.extensions.ExtensionsMixin rather than incuna.utils.extensions.ExtensionsMixin
+  From FeinCMS v1.7 extensions sub class feincms.extensions.ExtensionsMixin.
+  Support for register(cls, admin_cls)-style functions is removed in FeinCMS v1.9.
+* Convert all extension to sub class feincms.extensions.ExtensionsMixin.
+
 v0.7
 ------
 
