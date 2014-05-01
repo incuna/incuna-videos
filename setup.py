@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-from videos import get_version
+
 setup(
     name = "incuna-videos",
     packages = find_packages(),
@@ -10,7 +10,7 @@ setup(
         "django-incuna>=2.1",
         "django-settingsjs>=0.1",
     ],
-    version = get_version(),
+    version = '1.0.0',
     description = "Generic extensible video content.",
     author = "Incuna Ltd",
     author_email = "admin@incuna.com",

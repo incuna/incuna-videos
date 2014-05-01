@@ -3,5 +3,3 @@ from .models import Video, VideoAdmin
 
 
 admin.site.register(Video, VideoAdmin)
-
-
