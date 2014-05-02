@@ -7,7 +7,6 @@ from incuna.db.models import AutoSlugField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
-from incuna.utils.timesince import timesince
 from incuna.utils import find
 from settingsjs.signals import collect_settings
 
@@ -39,6 +38,7 @@ class Video(models.Model, ExtensionsMixin):
 
     @property
     def length_display(self):
+        from incuna.utils.timesince import timesince
         return timesince(datetime.time(0, 0, 0), self.length)
 
     @classmethod
