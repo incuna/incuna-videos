@@ -6,3 +6,7 @@ help:
 
 release:
 	python setup.py register -r incuna sdist upload -r incuna
+
+test:
+	@coverage run videos/tests/run.py
+	@coverage report
