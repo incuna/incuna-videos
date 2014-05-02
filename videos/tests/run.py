@@ -26,10 +26,6 @@ settings.configure(
     ),
     PASSWORD_HASHERS=('django.contrib.auth.hashers.MD5PasswordHasher',),
     ROOT_URLCONF='videos.tests.urls',
-    REST_FRAMEWORK={
-        'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
-        'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',),
-    },
 )
 
 try:
