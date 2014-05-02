@@ -1,5 +1,6 @@
 language: python
 python:
+  - "2.7"
   - "3.3"
 script: make test
 notifications:
@@ -8,7 +9,9 @@ env:
   global:
     - DATABASE_URL='postgres://postgres@localhost/videos'
   matrix:
+    - DJANGO='django>=1.5,<1.6'
     - DJANGO='django>=1.6,<1.7'
+    - DJANGO='https://github.com/django/django/archive/1.7b3.zip'
 install:
   - psql -c 'CREATE DATABASE videos' -U postgres;
   - pip install -r test_requirements.txt --use-wheel
