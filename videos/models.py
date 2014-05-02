@@ -3,12 +3,9 @@ from django import forms
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
-from incuna.db.models import AutoSlugField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
-from incuna.utils.timesince import timesince
-from incuna.utils import find
 from settingsjs.signals import collect_settings
 
 
@@ -22,8 +19,15 @@ class Video(models.Model, ExtensionsMixin):
     Extendible video model.
     """
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(max_length=127, populate_from="title", editable=True, blank=True, unique=True,
-                         help_text='This will be automatically generated from the title, and is used as the video\'s website address', )
+    slug = models.SlugField(
+        max_length=127,
+        editable=True,
+        unique=True,
+        help_text=(
+            "This will be automatically generated from the title, and " +
+            "is used as the video's website address"
+        ),
+    )
     preview = models.FileField(max_length=255, upload_to='videos/preview', null=True, blank=True, help_text=_('Preview image for this video.'))
     length = models.TimeField(blank=True, null=True, help_text='hh:mm:ss')
     recorded = models.DateField(blank=True, null=True)
@@ -39,6 +43,7 @@ class Video(models.Model, ExtensionsMixin):
 
     @property
     def length_display(self):
+        raise NotImplementedError('https://github.com/incuna/incuna-videos/issues/8')
         return timesince(datetime.time(0, 0, 0), self.length)
 
     @classmethod
@@ -74,8 +79,9 @@ class BaseSourceFormSet(forms.models.BaseInlineFormSet):
             # Don't bother validating the formset unless each form is valid on it's own
             return
 
-        if not find(lambda form: getattr(form, 'cleaned_data', None), self.forms):
-            raise forms.ValidationError, 'Please specify at least one %s' % (self.model._meta.verbose_name)
+        if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
+            msg = 'Please specify at least one {0}'.format(self.model._meta.verbose_name)
+            raise forms.ValidationError(msg)
 
 
 class SourceInline(admin.TabularInline):
@@ -89,7 +95,7 @@ class VideoAdmin(admin.ModelAdmin):
     inlines = [SourceInline]
     list_display = ['title', 'preview', 'created', 'recorded']
     search_fields = ['title']
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {'slug': ('title',)}
     fieldsets = [('', {
                     'fields': ['title', 'slug', 'preview', 'length', 'recorded'],
                 })]

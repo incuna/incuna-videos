@@ -1,18 +1,17 @@
 from setuptools import setup, find_packages
 
-from videos import get_version
+
 setup(
-    name = "incuna-videos",
-    packages = find_packages(),
+    name='incuna-videos',
+    packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        "FeinCMS>=1.7",
-        "django-incuna>=2.1",
-        "django-settingsjs>=0.1",
+        'FeinCMS>=1.7',
+        'django-settingsjs>=0.1',
     ],
-    version = get_version(),
-    description = "Generic extensible video content.",
-    author = "Incuna Ltd",
-    author_email = "admin@incuna.com",
-    url = "http://incuna.com/",
+    version='1.0.0',
+    description='Generic extensible video content.',
+    author='Incuna Ltd',
+    author_email='admin@incuna.com',
+    url='https://github.com/incuna/incuna-videos',
 )
