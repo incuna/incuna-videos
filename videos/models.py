@@ -3,7 +3,6 @@ from django import forms
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
-from incuna.db.models import AutoSlugField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
@@ -20,8 +19,15 @@ class Video(models.Model, ExtensionsMixin):
     Extendible video model.
     """
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(max_length=127, populate_from="title", editable=True, blank=True, unique=True,
-                         help_text='This will be automatically generated from the title, and is used as the video\'s website address', )
+    slug = models.SlugField(
+        max_length=127,
+        editable=True,
+        unique=True,
+        help_text=(
+            "This will be automatically generated from the title, and " +
+            "is used as the video's website address"
+        ),
+    )
     preview = models.FileField(max_length=255, upload_to='videos/preview', null=True, blank=True, help_text=_('Preview image for this video.'))
     length = models.TimeField(blank=True, null=True, help_text='hh:mm:ss')
     recorded = models.DateField(blank=True, null=True)
@@ -89,7 +95,7 @@ class VideoAdmin(admin.ModelAdmin):
     inlines = [SourceInline]
     list_display = ['title', 'preview', 'created', 'recorded']
     search_fields = ['title']
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {'slug': ('title',)}
     fieldsets = [('', {
                     'fields': ['title', 'slug', 'preview', 'length', 'recorded'],
                 })]
