@@ -1,7 +1,6 @@
 import datetime
-from django import forms
+
 from django.conf import settings
-from django.contrib import admin
 from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
@@ -48,6 +47,7 @@ class Video(models.Model, ExtensionsMixin):
 
     @classmethod
     def register_extension(cls, register_fn):
+        from .admin import VideoAdmin
         register_fn(cls, VideoAdmin)
 
 
@@ -69,36 +69,6 @@ class Source(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.video.title, self.get_type_display())
-
-
-class BaseSourceFormSet(forms.models.BaseInlineFormSet):
-    def clean(self):
-        super(BaseSourceFormSet, self).clean()
-
-        if any(self.errors):
-            # Don't bother validating the formset unless each form is valid on it's own
-            return
-
-        if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
-            msg = 'Please specify at least one {0}'.format(self.model._meta.verbose_name)
-            raise forms.ValidationError(msg)
-
-
-class SourceInline(admin.TabularInline):
-    extra = 1
-    fields = ('file', 'type')
-    model = Source
-    formset = BaseSourceFormSet
-
-
-class VideoAdmin(admin.ModelAdmin):
-    inlines = [SourceInline]
-    list_display = ['title', 'preview', 'created', 'recorded']
-    search_fields = ['title']
-    prepopulated_fields = {'slug': ('title',)}
-    fieldsets = [('', {
-                    'fields': ['title', 'slug', 'preview', 'length', 'recorded'],
-                })]
 
 
 # Add videos specific js settings
