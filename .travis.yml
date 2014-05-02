@@ -11,6 +11,6 @@ env:
     - DJANGO='django>=1.6,<1.7'
 install:
   - psql -c 'CREATE DATABASE videos' -U postgres;
-  - pip install -r test_requirements.txt
-  - pip install -e .
-  - pip install $DJANGO
+  - pip install -r test_requirements.txt --use-wheel
+  - pip install -e . --use-wheel
+  - pip install $DJANGO --use-wheel
