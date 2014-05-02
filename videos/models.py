@@ -7,7 +7,6 @@ from incuna.db.models import AutoSlugField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
-from incuna.utils import find
 from settingsjs.signals import collect_settings
 
 
@@ -74,7 +73,7 @@ class BaseSourceFormSet(forms.models.BaseInlineFormSet):
             # Don't bother validating the formset unless each form is valid on it's own
             return
 
-        if not find(lambda form: getattr(form, 'cleaned_data', None), self.forms):
+        if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
             raise forms.ValidationError, 'Please specify at least one %s' % (self.model._meta.verbose_name)
 
 
