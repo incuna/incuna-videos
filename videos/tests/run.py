@@ -4,6 +4,7 @@ from optparse import make_option, OptionParser
 import sys
 
 from colour_runner.django_runner import ColourRunnerMixin
+import django
 from django.conf import settings
 import dj_database_url
 
@@ -31,6 +32,10 @@ settings.configure(
     },
 )
 
+try:
+    django.setup()
+except AttributeError:
+    pass
 
 try:
     from django.test.runner import DiscoverRunner
