@@ -12,6 +12,6 @@ setup(
     version='1.0.0',
     description='Generic extensible video content.',
     author='Incuna Ltd',
-    author_email ='admin@incuna.com',
+    author_email='admin@incuna.com',
     url='https://github.com/incuna/incuna-videos',
 )
