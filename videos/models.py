@@ -43,7 +43,7 @@ class Video(models.Model, ExtensionsMixin):
 
     @property
     def length_display(self):
-        from incuna.utils.timesince import timesince
+        raise NotImplementedError('https://github.com/incuna/incuna-videos/issues/8')
         return timesince(datetime.time(0, 0, 0), self.length)
 
     @classmethod
