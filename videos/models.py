@@ -74,7 +74,8 @@ class BaseSourceFormSet(forms.models.BaseInlineFormSet):
             return
 
         if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
-            raise forms.ValidationError, 'Please specify at least one %s' % (self.model._meta.verbose_name)
+            msg = 'Please specify at least one {0}'.format(self.model._meta.verbose_name)
+            raise forms.ValidationError(msg)
 
 
 class SourceInline(admin.TabularInline):
