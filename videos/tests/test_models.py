@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.test import TestCase
 
 from .factories import VideoFactory
 from .. import models
+from ..compat import string_type
 
 
 class TestVideo(TestCase):
@@ -48,6 +52,14 @@ class TestVideoManager(TestCase):
         with self.settings(VIDEOS_LATEST_LIMIT=1):
             latest = models.Video.objects.latest()
         self.assertIs(latest.count(), 1)
+
+
+class TestVideoUnicode(TestCase):
+    def test_cast_to_unicode_string(self):
+        expected = 'ツ'
+        video = VideoFactory.create(title=expected)
+        self.assertEqual(string_type(video), expected)
+
 
 class TestSource(TestCase):
     def test_fields(self):
