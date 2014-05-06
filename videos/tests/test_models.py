@@ -2,13 +2,14 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
+from incuna_test_utils.testcases.compat import Python2CountEqualMixin
 
 from .factories import SourceFactory, VideoFactory
 from .. import models
 from ..compat import string_type
 
 
-class TestVideo(TestCase):
+class TestVideo(Python2CountEqualMixin, TestCase):
     def test_fields(self):
         expected_fields = (
             'id',
@@ -61,7 +62,7 @@ class TestVideoUnicode(TestCase):
         self.assertEqual(string_type(video), expected)
 
 
-class TestSource(TestCase):
+class TestSource(Python2CountEqualMixin, TestCase):
     def test_fields(self):
         expected_fields = (
             'id',
