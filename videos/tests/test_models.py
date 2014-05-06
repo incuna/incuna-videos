@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 
-from .factories import VideoFactory
+from .factories import SourceFactory, VideoFactory
 from .. import models
 from ..compat import string_type
 
@@ -73,3 +73,14 @@ class TestSource(TestCase):
 
         fields = models.Source._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
+
+
+class TestSourceUnicode(TestCase):
+    def test_cast_to_unicode_string(self):
+        video_title = 'ツ'
+        source = SourceFactory.build(
+            video__title=video_title,
+            type=models.Source.TYPE_MP4,
+        )
+        expected = '{title} {type}'.format(title=video_title, type='mp4')
+        self.assertEqual(string_type(source), expected)

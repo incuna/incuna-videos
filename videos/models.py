@@ -56,24 +56,25 @@ class Video(models.Model, ExtensionsMixin):
         register_fn(cls, VideoAdmin)
 
 
+@python_2_unicode_compatible
 class Source(models.Model):
     """
     Video source (inspired by the HTML5 <source> tag)
     """
-    TYPE_CHOICES = getattr(settings,
-                          'VIDEO_TYPE_CHOICES',
-                          (
-                              ('video/mp4; codecs="avc1.42E01E, mp4a.40.2"', 'mp4'),
-                              ('video/webm; codecs="vp8, vorbis"', 'webm'),
-                              ('video/ogg; codecs="theora, vorbis"', 'ogg'),
-                          ),
-                         )
+    TYPE_MP4 = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+    TYPE_WEBM = 'video/webm; codecs="vp8, vorbis"'
+    TYPE_OGG =  'video/ogg; codecs="theora, vorbis"'
+    TYPE_CHOICES = getattr(settings, 'VIDEO_TYPE_CHOICES', (
+        (TYPE_MP4, 'mp4'),
+        (TYPE_WEBM, 'webm'),
+        (TYPE_OGG, 'ogg'),
+    ))
     video = models.ForeignKey(Video)
     file = models.FileField(upload_to='videos/%Y/%m/')
     type = models.CharField(max_length=255, choices=TYPE_CHOICES)
 
-    def __unicode__(self):
-        return u'%s %s' % (self.video.title, self.get_type_display())
+    def __str__(self):
+        return '%s %s' % (self.video.title, self.get_type_display())
 
 
 # Add videos specific js settings
