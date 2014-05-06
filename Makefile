@@ -10,4 +10,4 @@ release:
 
 test:
 	@coverage run videos/tests/run.py --verbosity=${VERBOSITY}
-	@coverage report
+	@coverage report -m
