@@ -57,7 +57,7 @@ class TestVideoManager(TestCase):
 class TestVideoUnicode(TestCase):
     def test_cast_to_unicode_string(self):
         expected = 'ツ'
-        video = VideoFactory.create(title=expected)
+        video = VideoFactory.build(title=expected)
         self.assertEqual(string_type(video), expected)
 
 
