@@ -17,7 +17,7 @@ class VideoManager(models.Manager):
 
 class Video(models.Model, ExtensionsMixin):
     """
-    Extendible video model.
+    Extensible video model.
     """
     title = models.CharField(max_length=255)
     slug = models.SlugField(
