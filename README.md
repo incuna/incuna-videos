@@ -45,7 +45,6 @@ Here is the **speakers** extension (`videos/extensions/speakers.py`):
 
 ### Dependencies
 
-* [django-incuna](https://github.com/incuna/django-incuna)
 * [django-settingsjs](https://github.com/incuna/django-settingsjs)
 
 For flowplayer integration include 'settingsjs' in your `INSTALLED_APPS`, 
