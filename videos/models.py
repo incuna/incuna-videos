@@ -9,7 +9,9 @@ from settingsjs.signals import collect_settings
 
 
 class VideoManager(models.Manager):
-    def latest(self, limit=getattr(settings, 'VIDEOS_LATEST_LIMIT', 3)):
+    def latest(self, limit=None):
+        if limit is None:
+            limit = getattr(settings, 'VIDEOS_LATEST_LIMIT', 3)
         return self.get_query_set()[:limit]
 
 
