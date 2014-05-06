@@ -6,7 +6,14 @@ from incuna_test_utils.testcases.compat import Python2CountEqualMixin
 
 from .factories import SourceFactory, VideoFactory
 from .. import models
-from ..compat import string_type
+from ..compat import DJANGO_LT_17, string_type
+
+
+def clean_fields(fields):
+    """Remove fields ending in '_id' (on django < 1.7)"""
+    def clean_id_field(name):
+        return None if name.endswith('_id') and DJANGO_LT_17 else name
+    return filter(clean_id_field, fields)
 
 
 class TestVideo(Python2CountEqualMixin, TestCase):
@@ -68,9 +75,12 @@ class TestSource(Python2CountEqualMixin, TestCase):
             'id',
 
             'video',
+            'video_id',
             'file',
             'type',
         )
+
+        expected_fields = clean_fields(expected_fields)
 
         fields = models.Source._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
