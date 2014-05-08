@@ -16,7 +16,6 @@ class VideoManager(models.Manager):
         return self.get_query_set()[:limit]
 
 
-
 @python_2_unicode_compatible
 class Video(models.Model, ExtensionsMixin):
     """
@@ -63,7 +62,7 @@ class Source(models.Model):
     """
     TYPE_MP4 = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
     TYPE_WEBM = 'video/webm; codecs="vp8, vorbis"'
-    TYPE_OGG =  'video/ogg; codecs="theora, vorbis"'
+    TYPE_OGG = 'video/ogg; codecs="theora, vorbis"'
     TYPE_CHOICES = getattr(settings, 'VIDEO_TYPE_CHOICES', (
         (TYPE_MP4, 'mp4'),
         (TYPE_WEBM, 'webm'),
