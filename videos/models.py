@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import datetime
 
 from django.conf import settings
@@ -73,7 +75,7 @@ class Source(models.Model):
     type = models.CharField(max_length=255, choices=TYPE_CHOICES)
 
     def __str__(self):
-        return '%s %s' % (self.video.title, self.get_type_display())
+        return '{0} {1}'.format(self.video.title, self.get_type_display())
 
 
 # Add videos specific js settings
