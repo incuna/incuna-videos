@@ -28,8 +28,11 @@ class TestVideo(Python2CountEqualMixin, TestCase):
             'recorded',
             'created',
 
-            # Incoming
-            'source',  # TODO: set a verbose name.
+            # Extra
+            'sub_title',  # Subtitle extension.
+            'source',  # Source model. TODO: set a verbose name.
+            'chapter',  # Chapters extension. TODO: set a verbose name.
+            'speakers',  # Speakers extension.
         )
 
         fields = models.Video._meta.get_all_field_names()

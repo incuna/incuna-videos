@@ -16,6 +16,9 @@ settings.configure(
     DEFAULT_FILE_STORAGE='inmemorystorage.InMemoryStorage',
     INSTALLED_APPS=(
         'videos',
+        'videos.module.chapters',
+        'videos.module.speakers',
+        'videos.tests',
 
         # Put contenttypes before auth to work around test issue.
         # See: https://code.djangoproject.com/ticket/10827#comment:12
