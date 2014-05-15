@@ -23,6 +23,6 @@ class TestVideoURLs(URLTestCase):
         self.assert_url_matches_view(
             view=views.VideoDetail,
             expected_url='/videos/{slug}.html'.format(slug=slug),
-            url_name='video_detail',
+            url_name='videos_detail',
             url_kwargs={'slug': slug},
         )
