@@ -6,3 +6,4 @@ factory_boy==2.3.1
 incuna-test-utils==0.7.0
 mock==1.0.1
 psycopg2==2.5.2
+six==1.6.1
