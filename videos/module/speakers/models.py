@@ -6,7 +6,6 @@ class Speaker(models.Model):
     name = models.CharField(max_length=127)
     slug = models.SlugField(
         max_length=127,
-        populate_from='name',
         help_text=(
             "This will be automatically generated from the name, and is used" +
             "in the speaker's website address",
