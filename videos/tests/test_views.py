@@ -1,3 +1,4 @@
+from incuna_test_utils.compat import Python2CountEqualMixin
 from incuna_test_utils.testcases.request import RequestTestCase
 import mock
 
@@ -5,7 +6,7 @@ from . import factories
 from .. import views
 
 
-class TestVideoList(RequestTestCase):
+class TestVideoList(Python2CountEqualMixin, RequestTestCase):
     def test_get_empty_list(self):
         view = views.VideoList.as_view()
         response = view(self.create_request(auth=False))
