@@ -2,18 +2,14 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from incuna_test_utils.testcases.compat import Python2CountEqualMixin
+from incuna_test_utils.compat import (
+    Python2CountEqualMixin,
+    wipe_id_fields_on_django_lt_17,
+)
+from six import text_type
 
 from .factories import SourceFactory, VideoFactory
 from .. import models
-from ..compat import DJANGO_LT_17, string_type
-
-
-def clean_fields(fields):
-    """Remove fields ending in '_id' (on django < 1.7)"""
-    def clean_id_field(name):
-        return None if name.endswith('_id') and DJANGO_LT_17 else name
-    return filter(clean_id_field, fields)
 
 
 class TestVideo(Python2CountEqualMixin, TestCase):
@@ -69,7 +65,7 @@ class TestVideoUnicode(TestCase):
     def test_cast_to_unicode_string(self):
         expected = 'ツ'
         video = VideoFactory.build(title=expected)
-        self.assertEqual(string_type(video), expected)
+        self.assertEqual(text_type(video), expected)
 
 
 class TestSource(Python2CountEqualMixin, TestCase):
@@ -83,7 +79,7 @@ class TestSource(Python2CountEqualMixin, TestCase):
             'type',
         )
 
-        expected_fields = clean_fields(expected_fields)
+        expected_fields = wipe_id_fields_on_django_lt_17(expected_fields)
 
         fields = models.Source._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
@@ -97,4 +93,4 @@ class TestSourceUnicode(TestCase):
             type=models.Source.TYPE_MP4,
         )
         expected = '{title} {type}'.format(title=video_title, type='mp4')
-        self.assertEqual(string_type(source), expected)
+        self.assertEqual(text_type(source), expected)

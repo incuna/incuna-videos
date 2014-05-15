@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from incuna_test_utils.testcases.compat import Python2CountEqualMixin
-from incuna_test_utils.compat import wipe_id_fields_on_django_lt_17
+from incuna_test_utils.compat import (
+    Python2CountEqualMixin,
+    wipe_id_fields_on_django_lt_17,
+)
 from six import text_type
 
 from . import factories
