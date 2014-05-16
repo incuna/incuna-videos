@@ -78,7 +78,10 @@ class Source(models.Model):
     type = models.CharField(max_length=255, choices=TYPE_CHOICES)
 
     def __str__(self):
-        return '{0} {1}'.format(self.video.title, self.get_type_display())
+        return '{video_title} {type}'.format(
+            video_title=self.video.title,
+            type=self.get_type_display(),
+        )
 
 
 # Add videos specific js settings
