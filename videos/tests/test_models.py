@@ -38,7 +38,7 @@ class TestVideo(Python2CountEqualMixin, TestCase):
 class TestVideoManager(TestCase):
     def test_latest(self):
         """The default behaviour of 'Video.objects.latest()'"""
-        VideoFactory.create_batch(4)
+        VideoFactory.create_batch(models.DEFAULT_LATEST_LIMIT + 1)
         latest = models.Video.objects.latest()
         self.assertIs(latest.count(), models.DEFAULT_LATEST_LIMIT)
 
@@ -49,16 +49,18 @@ class TestVideoManager(TestCase):
 
     def test_latest_2(self):
         """An exact number of 'Video.objects.latest()'"""
-        VideoFactory.create_batch(3)
-        latest = models.Video.objects.latest(limit=2)
-        self.assertIs(latest.count(), 2)
+        limit = 2
+        VideoFactory.create_batch(limit + 1)
+        latest = models.Video.objects.latest(limit=limit)
+        self.assertIs(latest.count(), limit)
 
     def test_latest_setting(self):
         """Default setting of 'Video.objects.latest()'"""
-        VideoFactory.create_batch(2)
-        with self.settings(VIDEOS_LATEST_LIMIT=1):
+        limit = 1
+        VideoFactory.create_batch(limit + 1)
+        with self.settings(VIDEOS_LATEST_LIMIT=limit):
             latest = models.Video.objects.latest()
-        self.assertIs(latest.count(), 1)
+        self.assertIs(latest.count(), limit)
 
 
 class TestVideoUnicode(TestCase):
