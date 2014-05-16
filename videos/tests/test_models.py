@@ -26,8 +26,8 @@ class TestVideo(Python2CountEqualMixin, TestCase):
 
             # Extra
             'sub_title',  # Subtitle extension.
-            'source',  # Source model. TODO: set a verbose name.
-            'chapter',  # Chapters extension. TODO: set a verbose name.
+            'source',  # Source model. TODO: set a related name.
+            'chapter',  # Chapters extension. TODO: set a related name.
             'speakers',  # Speakers extension.
         )
 
