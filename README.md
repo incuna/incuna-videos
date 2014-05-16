@@ -16,7 +16,11 @@ Extensions are a way to add often-used functionality the Video model. The extens
 To register extensions, call Video.register_extensions from a models.py file that will be processed anyway:
 
     from videos.models import Video
-    Video.register_extensions('chapters', 'speakers', 'myapp.videoextensions')
+    Video.register_extensions(
+        'videos.extensions.chapters',
+        'videos.extensions.speakers',
+        'myapp.videoextensions',
+    )
 
 If the extension requires it's own models (like the chapters and speakers extension) then the app containing the models will also need to be added to your INSTALLED_APPS.
 
@@ -45,7 +49,6 @@ Here is the **speakers** extension (`videos/extensions/speakers.py`):
 
 ### Dependencies
 
-* [django-incuna](https://github.com/incuna/django-incuna)
 * [django-settingsjs](https://github.com/incuna/django-settingsjs)
 
 For flowplayer integration include 'settingsjs' in your `INSTALLED_APPS`, 

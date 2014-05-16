@@ -1,22 +1,30 @@
+from __future__ import unicode_literals
+
 import datetime
-from django import forms
+
 from django.conf import settings
-from django.contrib import admin
 from django.db import models
 from django.dispatch import receiver
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
 from settingsjs.signals import collect_settings
 
 
+DEFAULT_LATEST_LIMIT = 3
+
+
 class VideoManager(models.Manager):
-    def latest(self, limit=getattr(settings, 'VIDEOS_LATEST_LIMIT', 3)):
+    def latest(self, limit=None):
+        if limit is None:
+            limit = getattr(settings, 'VIDEOS_LATEST_LIMIT', DEFAULT_LATEST_LIMIT)
         return self.get_query_set()[:limit]
 
 
+@python_2_unicode_compatible
 class Video(models.Model, ExtensionsMixin):
     """
-    Extendible video model.
+    Extensible video model.
     """
     title = models.CharField(max_length=255)
     slug = models.SlugField(
@@ -38,7 +46,7 @@ class Video(models.Model, ExtensionsMixin):
     class Meta:
         ordering = ('created',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
@@ -48,57 +56,32 @@ class Video(models.Model, ExtensionsMixin):
 
     @classmethod
     def register_extension(cls, register_fn):
+        from .admin import VideoAdmin
         register_fn(cls, VideoAdmin)
 
 
+@python_2_unicode_compatible
 class Source(models.Model):
     """
     Video source (inspired by the HTML5 <source> tag)
     """
-    TYPE_CHOICES = getattr(settings,
-                          'VIDEO_TYPE_CHOICES',
-                          (
-                              ('video/mp4; codecs="avc1.42E01E, mp4a.40.2"', 'mp4'),
-                              ('video/webm; codecs="vp8, vorbis"', 'webm'),
-                              ('video/ogg; codecs="theora, vorbis"', 'ogg'),
-                          ),
-                         )
+    TYPE_MP4 = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+    TYPE_WEBM = 'video/webm; codecs="vp8, vorbis"'
+    TYPE_OGG = 'video/ogg; codecs="theora, vorbis"'
+    TYPE_CHOICES = getattr(settings, 'VIDEO_TYPE_CHOICES', (
+        (TYPE_MP4, 'mp4'),
+        (TYPE_WEBM, 'webm'),
+        (TYPE_OGG, 'ogg'),
+    ))
     video = models.ForeignKey(Video)
     file = models.FileField(upload_to='videos/%Y/%m/')
     type = models.CharField(max_length=255, choices=TYPE_CHOICES)
 
-    def __unicode__(self):
-        return u'%s %s' % (self.video.title, self.get_type_display())
-
-
-class BaseSourceFormSet(forms.models.BaseInlineFormSet):
-    def clean(self):
-        super(BaseSourceFormSet, self).clean()
-
-        if any(self.errors):
-            # Don't bother validating the formset unless each form is valid on it's own
-            return
-
-        if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
-            msg = 'Please specify at least one {0}'.format(self.model._meta.verbose_name)
-            raise forms.ValidationError(msg)
-
-
-class SourceInline(admin.TabularInline):
-    extra = 1
-    fields = ('file', 'type')
-    model = Source
-    formset = BaseSourceFormSet
-
-
-class VideoAdmin(admin.ModelAdmin):
-    inlines = [SourceInline]
-    list_display = ['title', 'preview', 'created', 'recorded']
-    search_fields = ['title']
-    prepopulated_fields = {'slug': ('title',)}
-    fieldsets = [('', {
-                    'fields': ['title', 'slug', 'preview', 'length', 'recorded'],
-                })]
+    def __str__(self):
+        return '{video_title} {type}'.format(
+            video_title=self.video.title,
+            type=self.get_type_display(),
+        )
 
 
 # Add videos specific js settings

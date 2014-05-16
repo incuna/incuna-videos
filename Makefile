@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+VERBOSITY := 1
 
 help:
 	@echo "usage:"
@@ -8,5 +9,5 @@ release:
 	python setup.py register sdist upload
 
 test:
-	@coverage run videos/tests/run.py
-	@coverage report
+	@coverage run videos/tests/run.py --verbosity=${VERBOSITY}
+	@coverage report -m
