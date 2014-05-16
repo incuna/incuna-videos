@@ -1,4 +1,3 @@
 [run]
 source = videos
-show_missing = True
 omit = *site-packages*, *tests*
