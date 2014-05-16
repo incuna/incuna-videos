@@ -4,13 +4,15 @@ from django import template
 
 from videos.models import Video
 
+
 register = template.Library()
+
+
 @register.inclusion_tag('videos/_video.html')
 def video(video):
-    """
-    Render the video.
-    """
-    return {'video': video,}
+    """Render the video"""
+    return {'video': video}
+
 
 @register.inclusion_tag('videos/_video_hours_count.html')
 def video_hours_count():
@@ -21,4 +23,3 @@ def video_hours_count():
     if result.minute > 30:
         result = result + timedelta(hours=1)
     return {'hours': result.hour}
-
