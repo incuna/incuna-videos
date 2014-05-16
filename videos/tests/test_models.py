@@ -40,7 +40,7 @@ class TestVideoManager(TestCase):
         """The default behaviour of 'Video.objects.latest()'"""
         VideoFactory.create_batch(4)
         latest = models.Video.objects.latest()
-        self.assertIs(latest.count(), 3)  # 3 is the default
+        self.assertIs(latest.count(), models.DEFAULT_LATEST_LIMIT)
 
     def test_latest_none(self):
         """'Latest videos' when no Videos exist"""

@@ -11,10 +11,13 @@ from feincms.extensions import ExtensionsMixin
 from settingsjs.signals import collect_settings
 
 
+DEFAULT_LATEST_LIMIT = 3
+
+
 class VideoManager(models.Manager):
     def latest(self, limit=None):
         if limit is None:
-            limit = getattr(settings, 'VIDEOS_LATEST_LIMIT', 3)
+            limit = getattr(settings, 'VIDEOS_LATEST_LIMIT', DEFAULT_LATEST_LIMIT)
         return self.get_query_set()[:limit]
 
 
