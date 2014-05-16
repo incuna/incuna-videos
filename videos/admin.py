@@ -9,7 +9,7 @@ class BaseSourceFormSet(forms.models.BaseInlineFormSet):
         super(BaseSourceFormSet, self).clean()
 
         if any(self.errors):
-            # Don't bother validating the formset unless each form is valid on it's own
+            # Don't bother validating the formset unless each form is valid on its own
             return
 
         if not any(filter(lambda form: getattr(form, 'cleaned_data', None), self.forms)):
