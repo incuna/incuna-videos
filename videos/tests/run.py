@@ -20,6 +20,8 @@ settings.configure(
         'videos.module.speakers',
         'videos.tests',
 
+        'sorl.thumbnail',
+
         # Put contenttypes before auth to work around test issue.
         # See: https://code.djangoproject.com/ticket/10827#comment:12
         'django.contrib.contenttypes',

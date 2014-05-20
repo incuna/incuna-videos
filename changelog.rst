@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v2.0.0
+------
+
+* Remove requirement of django-incuna
+* Tests!
+* Remove `video` and `video_hours_count` tempate tags.
+* OPEN SOURCE! WOO!
+
 v1.0
 ------
 **Backwards incompatible: may break project extensions.**
