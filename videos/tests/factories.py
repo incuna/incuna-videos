@@ -13,5 +13,5 @@ class SourceFactory(factory.DjangoModelFactory):
 class VideoFactory(factory.DjangoModelFactory):
     FACTORY_FOR = models.Video
 
-    title = factory.Sequence(lambda i: 'Video {}'.format(i))
-    slug = factory.Sequence(lambda i: 'video-{}'.format(i))
+    title = factory.Sequence('Video {}'.format)
+    slug = factory.Sequence('video-{}'.format)
