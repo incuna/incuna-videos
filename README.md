@@ -58,3 +58,13 @@ Example usage:
                                  ('left', _('left')),
                                  ('right', _('right')),
                              ))
+
+### Dependencies
+
+* [FeinCMS](http://www.feincms.org/)
+
+    This facilitates the extensions mechanism.
+
+* [sorl-thumbnail](http://sorl-thumbnail.readthedocs.org/en/latest/)
+
+    This is used to scale the preview/cover image of the Video object.

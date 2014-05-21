@@ -9,6 +9,7 @@ Upcoming
 * Remove `video` and `video_hours_count` tempate tags.
 * Remove flowplayer and all javascript.
 * OPEN SOURCE! WOO!
+* Add sorl-thumbnail to dependancies. (This was already used in the template, just not mentioned.)
 
 v1.0
 ------
