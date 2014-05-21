@@ -4,11 +4,9 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
-from settingsjs.signals import collect_settings
 
 
 DEFAULT_LATEST_LIMIT = 3
@@ -82,27 +80,3 @@ class Source(models.Model):
             video_title=self.video.title,
             type=self.get_type_display(),
         )
-
-
-# Add videos specific js settings
-@receiver(collect_settings)
-def videos_settingsjs(sender, jssettings=None, **kwargs):
-    if jssettings is not None:
-        jssettings['videos-fpconfig'] = {
-            "path": settings.STATIC_URL+"videos/flash/flowplayer.commercial-3.1.5.swf",
-            "clip": {"scaling": "orig", "autoPlay": True},
-            "key": getattr(settings, 'FLOWPLAYER_KEY', "#@c231218f702f09ba2ed"),
-            "plugins": {
-                "controls": {
-                    "url": settings.STATIC_URL+"videos/flash/flowplayer.controls-3.1.5.swf",
-                    'autoHide': 'always',
-                    "backgroundColor": "#000000",
-                },
-            },
-        }
-
-        if hasattr(settings, 'AWS_CLOUDFRONT_STREAMING_DOMAIN'):
-            jssettings['videos-fpconfig']['plugins']['rtmp'] ={
-                "url": settings.STATIC_URL+"videos/flash/flowplayer.rtmp-3.1.3.swf",
-                "netConnectionUrl": "rtmp://%s/cfx/st" % settings.AWS_CLOUDFRONT_STREAMING_DOMAIN,
-            }

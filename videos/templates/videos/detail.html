@@ -1,8 +1,6 @@
 {% extends "videos/base.html" %}
 
-{% load videotags %}
 
 {% block video-content %}
-    {% video video %}
+    {% include 'videos/_video.html' with video=video %}
 {% endblock video-content %}
-

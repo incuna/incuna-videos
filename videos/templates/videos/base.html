@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 
-{% block extra_script %}
-    <script type="text/javascript" src="{{ STATIC_URL }}videos/scripts/flowplayer-3.2.6.min.js"></script>
-    {% comment %}<script type="text/javascript" src="{{ STATIC_URL }}scripts/flowplayer.ipad-3.2.2.min.js"></script>{% endcomment %}
-    <script type="text/javascript" src="{{ STATIC_URL }}incuna/script/flowplayer.plugins.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}videos/scripts/videos.js"></script>
-{% endblock extra_script %}
 
 {% block content %}
-{% block video-nav %}
-{% menuitems 'videos-menu' %} 
-	{% navitem 'videos_latest' %}Latest videos{% endnavitem %}
-    {% navitem 'videos_all' %}View all{% endnavitem %}
-{% endmenuitems %}
-{% endblock video-nav %}
-{% block video-content %}{% endblock video-content %}
+    {% block video-nav %}
+        <ul id="videos-menu">
+            <li>
+                <a href="{% url 'videos_latest' %}">Latest videos</a>
+                <a href="{% url 'videos_all' %}">View all</a>
+            </li>
+        </ul>
+    {% endblock video-nav %}
+    {% block video-content %}{% endblock video-content %}
 {% endblock content %}

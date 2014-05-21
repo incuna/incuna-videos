@@ -1,10 +1,13 @@
+import datetime
+
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+
+@python_2_unicode_compatible
 class Chapter(models.Model):
-    """
-    Video section.
-    """
+    """Video section"""
     video = models.ForeignKey('videos.Video')
     title = models.CharField(max_length=255)
     timecode = models.TimeField(help_text='hh:mm:ss')
@@ -14,10 +17,14 @@ class Chapter(models.Model):
         app_label = 'videos'
         ordering = ('timecode',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     @property
     def seconds(self):
-        return self.timecode.hour*3600+self.timecode.minute*60+self.timecode.second
-
+        timecode = self.timecode
+        return datetime.timedelta(
+            hours=timecode.hour,
+            minutes=timecode.minute,
+            seconds=timecode.second,
+        ).total_seconds()

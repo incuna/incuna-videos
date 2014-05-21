@@ -7,7 +7,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'FeinCMS>=1.7',
-        'django-settingsjs>=0.1',
+        'sorl-thumbnail==11.12.1b',
     ],
     version='1.0.0',
     description='Generic extensible video content.',
