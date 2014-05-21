@@ -1,11 +1,7 @@
-from django import forms
-from django.conf import settings
-from django.contrib.admin.widgets import AdminRadioSelect
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from feincms.admin.item_editor import ItemEditorForm
 
 
 class VideoContent(models.Model):
@@ -32,6 +28,7 @@ class VideoContent(models.Model):
                 default=TYPE_CHOICES[0][0],
             )
         )
+
     def get_template_names(self):
         return [
             'content/videocontent/%s/%s.html' % (self.region, self.position),
