@@ -22,6 +22,7 @@ class TestChapter(Python2CountEqualMixin, TestCase):
             'title',
             'timecode',
             'video',
+            'video_id',
             'preview',
         ])
         fields = self.model._meta.get_all_field_names()
