@@ -4,11 +4,9 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
-from settingsjs.signals import collect_settings
 
 
 DEFAULT_LATEST_LIMIT = 3
