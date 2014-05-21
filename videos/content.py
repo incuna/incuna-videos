@@ -8,8 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.admin.item_editor import ItemEditorForm
 
 
-# FeinCMS connector
 class VideoContent(models.Model):
+    """Display a video in all it's glorious formats"""
     video = models.ForeignKey('videos.Video', verbose_name=_('video'))
 
     class Meta:
