@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v2.0.0
+Upcoming
 ------
 
 * Remove requirement of django-incuna
