@@ -7,6 +7,7 @@ v2.0.0
 * Remove requirement of django-incuna
 * Tests!
 * Remove `video` and `video_hours_count` tempate tags.
+* Remove flowplayer and all javascript.
 * OPEN SOURCE! WOO!
 
 v1.0
