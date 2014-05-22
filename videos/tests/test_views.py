@@ -4,6 +4,8 @@ import mock
 
 from . import factories
 from .. import views
+from videos.module.chapters.tests.factories import ChapterFactory
+from videos.module.speakers.tests.factories import SpeakerFactory
 
 
 class TestVideoList(Python2CountEqualMixin, RequestTestCase):
@@ -27,12 +29,24 @@ class TestVideoList(Python2CountEqualMixin, RequestTestCase):
 class TestVideoDetail(RequestTestCase):
     def test_get_detail(self):
         video = factories.VideoFactory.create()
+        source = factories.SourceFactory.create(video=video)
+        chapter = ChapterFactory.create(video=video)
+        speaker = SpeakerFactory.create()
+        video.speakers.add(speaker)
 
         view = views.VideoDetail.as_view()
         response = view(self.create_request(auth=False), slug=video.slug)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context_data['object'], video)
+
+        rendered_content = response.render().content.decode()
+
+        self.assertIn(video.title, rendered_content)
+        self.assertIn(source.get_absolute_url(), rendered_content)
+        self.assertIn(source.get_type_display(), rendered_content)
+        self.assertIn('href="#{}"'.format(chapter.seconds), rendered_content)
+        self.assertIn(speaker.name, rendered_content)
 
 
 class TestVideoListLatest(RequestTestCase):
