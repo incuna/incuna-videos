@@ -49,6 +49,10 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
         content = self.model(region='main')
         source = factories.SourceFactory.create()
         content.video = source.video
-        with self.assertNumQueries(0):
+        with self.assertNumQueries(3):
+            # Three queries:
+            # - Get Speakers
+            # - Get Sources
+            # - Get Chapters
             result = content.render()
         self.assertIn(source.get_absolute_url(), result)
