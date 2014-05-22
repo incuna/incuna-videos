@@ -14,7 +14,7 @@ from .. import models
 
 class TestVideo(Python2CountEqualMixin, TestCase):
     def test_fields(self):
-        expected_fields = (
+        expected_fields = wipe_id_fields_on_django_lt_17([
             'id',
 
             'title',
@@ -29,7 +29,11 @@ class TestVideo(Python2CountEqualMixin, TestCase):
             'source',  # Source model. TODO: set a related name.
             'chapter',  # Chapters extension. TODO: set a related name.
             'speakers',  # Speakers extension.
-        )
+
+            # Tests
+            'videocontent',  # VideoContent for tests
+            'videocontent_id',
+        ])
 
         fields = models.Video._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
