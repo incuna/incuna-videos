@@ -31,9 +31,9 @@ class VideoContent(models.Model):
 
     def get_template_names(self):
         return [
-            'content/videocontent/%s/%s.html' % (self.region, self.position),
+            'content/videocontent/%s/%s.html' % (self.region, self.type),
             'content/videocontent/%s/default.html' % self.region,
-            'content/videocontent/%s.html' % self.position,
+            'content/videocontent/%s.html' % self.type,
             'content/videocontent/default.html',
         ]
 
