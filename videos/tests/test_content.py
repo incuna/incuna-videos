@@ -32,3 +32,11 @@ class CarouselContentTest(Python2CountEqualMixin, TestCase):
             'videos/content/default.html',  # Default/Last resort
         ]
         self.assertCountEqual(content.get_template_names(), expected)
+
+    def test_render(self):
+        content = self.model(region='main')
+        source = factories.SourceFactory.create()
+        content.video = source.video
+        with self.assertNumQueries(0):
+            result = content.render()
+        self.assertIn(source.get_absolute_url(), result)
