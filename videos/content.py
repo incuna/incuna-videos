@@ -38,9 +38,25 @@ class VideoContent(models.Model):
         ]
 
     def get_context_data(self, **kwargs):
-        return {'content': self, 'request': self.kwargs.get('request')}
+        context = {
+            'video': self.video,
+            'type': self.type,
+            'request': self.kwargs.get('request'),
+            'sources': self.video.source_set.all(),
+        }
+        extensions = (
+            ('chapters', 'chapter_set'),
+            ('speakers', 'speakers'),
+        )
+        for key, manager_name in extensions:
+            manager = getattr(self.video, manager_name, None)
+            if manager:
+                context.update({key: manager.all()})
+        return context
 
     def render(self, **kwargs):
+        self.kwargs = kwargs
+        self.request = kwargs.get('request')
         templates = self.get_template_names()
         context = self.get_context_data()
         return render_to_string(templates, context)

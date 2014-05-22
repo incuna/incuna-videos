@@ -4,14 +4,21 @@ from incuna_test_utils.compat import Python2CountEqualMixin
 from . import factories
 from .models import DummyPage
 from ..content import VideoContent
+from videos.module.chapters.tests.factories import ChapterFactory
+from videos.module.speakers.tests.factories import SpeakerFactory
 
 
-class CarouselContentTest(Python2CountEqualMixin, TestCase):
+class VideoContentTest(Python2CountEqualMixin, TestCase):
     model = DummyPage.content_type_for(VideoContent)
 
-    def test_get_context(self):
+    def test_get_context_data(self):
         content = self.model(region='main')
-        content.video = factories.VideoFactory.create()
+        video = factories.VideoFactory.create()
+        source = factories.SourceFactory.create(video=video)
+        chapter = ChapterFactory.create(video=video)
+        speaker = SpeakerFactory.create()
+        video.speakers.add(speaker)
+        content.video = video
         content.kwargs = {'request': 'dummy'}
 
         context = content.get_context_data()
@@ -20,6 +27,11 @@ class CarouselContentTest(Python2CountEqualMixin, TestCase):
             'type': 'block',  # Default set in 'models.py' when registered
             'video': content.video,
             'request': content.kwargs['request'],
+            'sources': [source],
+
+            # Extras included by standard extensions
+            'chapters': [chapter],
+            'speakers': [speaker],
         }
         self.assertCountEqual(context, expected)
 
