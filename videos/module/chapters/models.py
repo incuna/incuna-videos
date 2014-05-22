@@ -23,8 +23,9 @@ class Chapter(models.Model):
     @property
     def seconds(self):
         timecode = self.timecode
-        return datetime.timedelta(
+        seconds = datetime.timedelta(
             hours=timecode.hour,
             minutes=timecode.minute,
             seconds=timecode.second,
         ).total_seconds()
+        return int(seconds)

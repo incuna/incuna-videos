@@ -10,6 +10,7 @@ Upcoming
 * Remove flowplayer and all javascript.
 * OPEN SOURCE! WOO!
 * Add sorl-thumbnail to dependancies. (This was already used in the template, just not mentioned.)
+* Make "Chapter.seconds" return an int
 
 v1.0
 ------
