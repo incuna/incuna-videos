@@ -65,6 +65,6 @@ Example usage:
 
     This facilitates the extensions mechanism.
 
-* [sorl-thumbnail](http://sorl-thumbnail.readthedocs.org/en/latest/)
+* [django-imagekit](http://django-imagekit.readthedocs.org/en/latest/)
 
     This is used to scale the preview/cover image of the Video object.
