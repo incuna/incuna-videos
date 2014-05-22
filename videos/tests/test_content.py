@@ -26,9 +26,9 @@ class CarouselContentTest(Python2CountEqualMixin, TestCase):
     def test_get_template_names(self):
         content = self.model(region='main')
         expected = [
-            'content/videocontent/main/block.html',
-            'content/videocontent/main/default.html',
-            'content/videocontent/block.html',
-            'content/videocontent/default.html',
+            'videos/content/main/block.html',  # Region && type
+            'videos/content/main/default.html',  # Region default
+            'videos/content/block.html',  # Just type
+            'videos/content/default.html',  # Default/Last resort
         ]
         self.assertCountEqual(content.get_template_names(), expected)
