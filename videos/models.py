@@ -80,3 +80,6 @@ class Source(models.Model):
             video_title=self.video.title,
             type=self.get_type_display(),
         )
+
+    def get_absolute_url(self):
+        return self.file.url

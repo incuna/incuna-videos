@@ -86,8 +86,6 @@ class TestSource(Python2CountEqualMixin, TestCase):
         fields = models.Source._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
 
-
-class TestSourceUnicode(TestCase):
     def test_cast_to_unicode_string(self):
         video_title = 'ツ'
         source = SourceFactory.build(
@@ -96,3 +94,12 @@ class TestSourceUnicode(TestCase):
         )
         expected = '{title} {type}'.format(title=video_title, type='mp4')
         self.assertEqual(text_type(source), expected)
+
+    def test_get_absolute_url(self):
+        file_name = 'omgwtf.mp4'
+        source = SourceFactory.build(
+            type=models.Source.TYPE_MP4,
+            file=file_name,
+        )
+        url = source.get_absolute_url()
+        self.assertEqual(url, file_name)
