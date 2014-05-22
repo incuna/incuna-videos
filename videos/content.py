@@ -37,13 +37,12 @@ class VideoContent(models.Model):
             'videos/content/default.html',
         ]
 
-    def get_context_data(self, **kwargs):
-        context = {
+    def get_context_data(self, **context):
+        context.update({
             'video': self.video,
             'type': self.type,
-            'request': self.kwargs.get('request'),
             'sources': self.video.source_set.all(),
-        }
+        })
         extensions = (
             ('chapters', 'chapter_set'),
             ('speakers', 'speakers'),
@@ -55,8 +54,8 @@ class VideoContent(models.Model):
         return context
 
     def render(self, **kwargs):
-        self.kwargs = kwargs
-        self.request = kwargs.get('request')
-        templates = self.get_template_names()
-        context = self.get_context_data()
-        return render_to_string(templates, context)
+        return render_to_string(
+            self.get_template_names(),
+            self.get_context_data(**kwargs),
+            context_instance=kwargs.get('context'),
+        )

@@ -19,14 +19,13 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
         speaker = SpeakerFactory.create()
         video.speakers.add(speaker)
         content.video = video
-        content.kwargs = {'request': 'dummy'}
-
-        context = content.get_context_data()
+        request = 'dummy'
+        context = content.get_context_data(request=request)
 
         expected = {
             'type': 'block',  # Default set in 'models.py' when registered
             'video': content.video,
-            'request': content.kwargs['request'],
+            'request': request,
             'sources': [source],
 
             # Extras included by standard extensions
