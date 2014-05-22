@@ -11,6 +11,7 @@ Upcoming
 * OPEN SOURCE! WOO!
 * Replace `sorl-thumbnail` with `django-imagekit`.
 * Make "Chapter.seconds" return an int
+* Add VideoContent
 
 v1.0
 ------
