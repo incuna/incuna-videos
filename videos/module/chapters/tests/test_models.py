@@ -41,4 +41,6 @@ class TestChapterSecondsProperty(TestCase):
         """16m40s is 1000 seconds"""
         timecode = datetime.time(minute=16, second=40)
         chapter = factories.ChapterFactory.build(timecode=timecode)
-        self.assertEqual(chapter.seconds, 1000)
+        seconds = chapter.seconds
+        self.assertEqual(seconds, 1000)
+        self.assertIsInstance(seconds, int)

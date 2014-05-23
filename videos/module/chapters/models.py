@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 @python_2_unicode_compatible
 class Chapter(models.Model):
     """Video section"""
-    video = models.ForeignKey('videos.Video')
+    video = models.ForeignKey('videos.Video', related_name='chapters')
     title = models.CharField(max_length=255)
     timecode = models.TimeField(help_text='hh:mm:ss')
     preview = models.ImageField(upload_to='videos/chapter/', null=True, blank=True, help_text=_('Preview image for this chapter.'))
@@ -23,8 +23,9 @@ class Chapter(models.Model):
     @property
     def seconds(self):
         timecode = self.timecode
-        return datetime.timedelta(
+        seconds = datetime.timedelta(
             hours=timecode.hour,
             minutes=timecode.minute,
             seconds=timecode.second,
         ).total_seconds()
+        return int(seconds)

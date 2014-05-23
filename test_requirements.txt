@@ -1,9 +1,9 @@
 colour-runner==0.0.4
 coverage==3.7.1
 dj-database-url==0.2.2
-django-inmemorystorage==0.1.1
+dj-inmemorystorage==1.0.3
 factory_boy==2.3.1
-incuna-test-utils==2.0.0
+incuna-test-utils==2.0.1
 mock==1.0.1
 psycopg2==2.5.2
 six==1.6.1

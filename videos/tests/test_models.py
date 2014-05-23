@@ -14,7 +14,7 @@ from .. import models
 
 class TestVideo(Python2CountEqualMixin, TestCase):
     def test_fields(self):
-        expected_fields = (
+        expected_fields = wipe_id_fields_on_django_lt_17([
             'id',
 
             'title',
@@ -26,10 +26,14 @@ class TestVideo(Python2CountEqualMixin, TestCase):
 
             # Extra
             'sub_title',  # Subtitle extension.
-            'source',  # Source model. TODO: set a related name.
-            'chapter',  # Chapters extension. TODO: set a related name.
+            'sources',  # Source model.
+            'chapters',  # Chapters extension.
             'speakers',  # Speakers extension.
-        )
+
+            # Tests
+            'videocontent',  # VideoContent for tests
+            'videocontent_id',
+        ])
 
         fields = models.Video._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
@@ -86,8 +90,6 @@ class TestSource(Python2CountEqualMixin, TestCase):
         fields = models.Source._meta.get_all_field_names()
         self.assertCountEqual(fields, expected_fields)
 
-
-class TestSourceUnicode(TestCase):
     def test_cast_to_unicode_string(self):
         video_title = 'ツ'
         source = SourceFactory.build(
@@ -96,3 +98,12 @@ class TestSourceUnicode(TestCase):
         )
         expected = '{title} {type}'.format(title=video_title, type='mp4')
         self.assertEqual(text_type(source), expected)
+
+    def test_get_absolute_url(self):
+        file_name = 'omgwtf.mp4'
+        source = SourceFactory.build(
+            type=models.Source.TYPE_MP4,
+            file=file_name,
+        )
+        url = source.get_absolute_url()
+        self.assertEqual(url, file_name)

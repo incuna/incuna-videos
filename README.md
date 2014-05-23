@@ -47,17 +47,19 @@ Here is the **speakers** extension (`videos/extensions/speakers.py`):
                     }))
 
 
-A VideoContent FeinCMS content type is available from [incuna-feincms](https://github.com/incuna/incuna-feincms)
+A VideoContent FeinCMS content type is available in `videos.content`
 
 Example usage: 
 
-    from incunafein.content.video.models import VideoContent
-    Page.create_content_type(VideoContent, 
-                             POSITION_CHOICES=(
-                                 ('block', _('block')),
-                                 ('left', _('left')),
-                                 ('right', _('right')),
-                             ))
+    from videos.content import VideoContent
+    Page.create_content_type(
+        VideoContent,
+        TYPE_CHOICES=(
+            ('block', _('block')),
+            ('left', _('left')),
+            ('right', _('right')),
+        )
+    )
 
 ### Dependencies
 
@@ -65,6 +67,6 @@ Example usage:
 
     This facilitates the extensions mechanism.
 
-* [sorl-thumbnail](http://sorl-thumbnail.readthedocs.org/en/latest/)
+* [django-imagekit](http://django-imagekit.readthedocs.org/en/latest/)
 
     This is used to scale the preview/cover image of the Video object.
