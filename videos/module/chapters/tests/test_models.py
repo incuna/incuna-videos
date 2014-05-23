@@ -43,4 +43,4 @@ class TestChapterSecondsProperty(TestCase):
         chapter = factories.ChapterFactory.build(timecode=timecode)
         seconds = chapter.seconds
         self.assertEqual(seconds, 1000)
-        self.assertIs(type(seconds), int)
+        self.assertIsInstance(seconds, int)
