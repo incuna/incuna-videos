@@ -26,7 +26,7 @@ class TestVideoList(Python2CountEqualMixin, RequestTestCase):
         self.assertCountEqual(response.context_data['object_list'], [video])
 
 
-class TestVideoDetail(RequestTestCase):
+class TestVideoDetail(Python2CountEqualMixin, RequestTestCase):
     def setUp(self):
         self.video = factories.VideoFactory.create()
         self.source = factories.SourceFactory.create(video=self.video)
