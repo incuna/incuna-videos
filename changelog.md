@@ -3,6 +3,7 @@
 ## v2.0.0
 
 * Remove requirement of legacy closed source `django-incuna` library.
+* Preliminary python 3 support
 * Tests!
 * Remove `video` and `video_hours_count` tempate tags.
 * Remove flowplayer and all javascript.
