@@ -37,8 +37,8 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
     def test_get_template_names(self):
         content = self.model(region='main')
         expected = [
-            'videos/content/main/block.html',  # Region && type
-            'videos/content/main/default.html',  # Region default
+            'videos/content/main_block.html',  # Region && type
+            'videos/content/main.html',  # Region default
             'videos/content/block.html',  # Just type
             'videos/content/default.html',  # Default/Last resort
         ]
