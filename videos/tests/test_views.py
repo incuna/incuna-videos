@@ -1,4 +1,4 @@
-from incuna_test_utils.compat import Python2CountEqualMixin
+from incuna_test_utils.compat import DJANGO_LT_16, Python2CountEqualMixin
 from incuna_test_utils.testcases.request import RequestTestCase
 import mock
 
@@ -61,6 +61,8 @@ class TestVideoDetail(Python2CountEqualMixin, RequestTestCase):
             'chapters': [self.chapter],
             'speakers': [self.speaker],
         }
+        if DJANGO_LT_16:
+            expected.pop('object')
         self.assertCountEqual(context_data, expected)
 
 
