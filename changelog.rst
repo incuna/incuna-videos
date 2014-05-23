@@ -12,6 +12,7 @@ Upcoming
 * Replace `sorl-thumbnail` with `django-imagekit`.
 * Make "Chapter.seconds" return an int
 * Add VideoContent
+* Set related_name on Source.video and Chapter.video
 
 v1.0
 ------

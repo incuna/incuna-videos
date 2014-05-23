@@ -41,16 +41,13 @@ class VideoContent(models.Model):
         context.update({
             'video': self.video,
             'type': self.type,
-            'sources': self.video.source_set.all(),
+            'sources': self.video.sources.all(),
         })
-        extensions = (
-            ('chapters', 'chapter_set'),
-            ('speakers', 'speakers'),
-        )
-        for key, manager_name in extensions:
-            manager = getattr(self.video, manager_name, None)
+        extensions = ('chapters', 'speakers')
+        for extension in extensions:
+            manager = getattr(self.video, extension, None)
             if manager:
-                context.update({key: manager.all()})
+                context.update({extension: manager.all()})
         return context
 
     def render(self, **kwargs):

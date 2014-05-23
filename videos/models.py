@@ -71,7 +71,7 @@ class Source(models.Model):
         (TYPE_WEBM, 'webm'),
         (TYPE_OGG, 'ogg'),
     ))
-    video = models.ForeignKey(Video)
+    video = models.ForeignKey(Video, related_name='sources')
     file = models.FileField(upload_to='videos/%Y/%m/')
     type = models.CharField(max_length=255, choices=TYPE_CHOICES)
 
