@@ -1,19 +1,21 @@
-## Extensible videos for Django [![Build Status](https://travis-ci.org/incuna/incuna-videos.svg?branch=master)](https://travis-ci.org/incuna/incuna-videos) [![Coverage Status](https://img.shields.io/coveralls/incuna/incuna-videos.svg)](https://coveralls.io/r/incuna/incuna-videos?branch=master)
+# `incuna-videos` [![Build Status](https://travis-ci.org/incuna/incuna-videos.svg?branch=master)](https://travis-ci.org/incuna/incuna-videos) [![Coverage Status](https://img.shields.io/coveralls/incuna/incuna-videos.svg)](https://coveralls.io/r/incuna/incuna-videos?branch=master)
 
-This is an extensible videos app for Django, designed to provide a simple Video model that is extensible.
+An extensible Django app, that can output a `<video>` tag with a number of sources. These are represented by a `Video` and `Source` model.
 
-The concept (and some code) is borrowed from the FeinCMS (https://github.com/feincms/feincms) page model.
+The concept (and some code) is borrowed from the [FeinCMS](https://github.com/feincms/feincms) `Page` model.
+
+## Installation
 
 To use the videos module add `videos` to your `INSTALLED_APPS`.
 
-Before proceeding with `manage.py syncdb`, you may want to add some video extensions.
+**Warning:** Before proceeding with `manage.py syncdb`, you may want to add some video extensions.
 
 
 ### Video extension modules
 
-Extensions are a way to add often-used functionality the Video model. The extensions are standard python modules with a register() method which will be called upon registering the extension. The register() method receives the Video class itself and the model admin class VideoAdmin as arguments.
+Extensions are a way to add often-used functionality the Video model.
 
-To register extensions, call Video.register_extensions from a models.py file that will be processed anyway:
+To register extensions, call `Video.register_extensions` from a `models.py` file that will get imported at run-time:
 
     from videos.models import Video
     Video.register_extensions(
@@ -22,34 +24,18 @@ To register extensions, call Video.register_extensions from a models.py file tha
         'myapp.videoextensions',
     )
 
-If the extension requires it's own models (like the chapters and speakers extension) then the app containing the models will also need to be added to your INSTALLED_APPS.
+If the extension requires its own models (like the chapters and speakers extension) then the app containing the models will also need to be added to your INSTALLED_APPS. ie:
 
-### Createing extensions
+    INSTALLED_APPS += ['videos.module.chapters', ...]
 
-To create an extension create a python module that defines a register function that accepts the Video class and the VideoAdmin class as arguments and modifies them as required.
+### Custom extensions
 
-Here is the **speakers** extension (`videos/extensions/speakers.py`):
+You may be interested in the documentation for [FeinCMS extensions](http://feincms-django-cms.readthedocs.org/en/latest/extensions.html).
+## FeinCMS Content
 
-    from django.db import models
-    from django.utils.translation import ugettext_lazy as _
+A `VideoContent` [FeinCMS content type](feincms-django-cms.readthedocs.org/en/latest/contenttypes.html) is available in `videos.content`
 
-    def register(cls, admin_cls):
-        cls.add_to_class('speakers', models.ManyToManyField('videos.Speaker', null=True, blank=True))
-
-        if admin_cls:
-            admin_cls.list_display_filter = getattr(admin_cls, 'list_display_filter', ()) + ('speakers', )
-            admin_cls.filter_horizontal = getattr(admin_cls, 'filter_horizontal', ()) + ('speakers',)
-
-            if admin_cls.fieldsets:
-                admin_cls.fieldsets.append((_('Speakers'), {
-                        'fields': ['speakers',],
-                        'classes': ('collapse',),
-                    }))
-
-
-A VideoContent FeinCMS content type is available in `videos.content`
-
-Example usage: 
+Example usage:
 
     from videos.content import VideoContent
     Page.create_content_type(
@@ -61,11 +47,11 @@ Example usage:
         )
     )
 
-### Dependencies
+## Dependencies
 
 * [FeinCMS](http://www.feincms.org/)
 
-    This facilitates the extensions mechanism.
+    This facilitates the extensions and content-types mechanisms.
 
 * [django-imagekit](http://django-imagekit.readthedocs.org/en/latest/)
 
