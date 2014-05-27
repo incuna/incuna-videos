@@ -1,4 +1,4 @@
-# `incuna-videos`
+# `incuna-videos` [![Build Status](https://travis-ci.org/incuna/incuna-videos.svg?branch=master)](https://travis-ci.org/incuna/incuna-videos) [![Coverage Status](https://img.shields.io/coveralls/incuna/incuna-videos.svg)](https://coveralls.io/r/incuna/incuna-videos?branch=master)
 
 An extensible Django app, that can output a `<video>` tag with a number of sources. These are represented by a `Video` and `Source` model.
 

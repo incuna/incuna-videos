@@ -17,3 +17,6 @@ install:
   - pip install -e . --use-wheel
   - pip install $DJANGO --use-wheel
   - "if [[ $DJANGO == 'django>=1.5,<1.6' ]]; then pip install django-discover-runner==1.0.0; fi"
+  - pip install coveralls --use-wheel
+after_success:
+  coveralls
