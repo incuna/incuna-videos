@@ -6,7 +6,7 @@ help:
 	@echo "	make release -- release to pypi"
 
 release:
-	python setup.py register sdist upload
+	python setup.py register sdist bdist_wheel upload
 
 test:
 	@coverage run videos/tests/run.py --verbosity=${VERBOSITY}
