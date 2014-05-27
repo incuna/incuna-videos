@@ -9,7 +9,7 @@ setup(
         'FeinCMS>=1.7',
         'django-imagekit==3.2.1',
     ],
-    version='1.0.0',
+    version='2.0.0',
     description='Generic extensible video content.',
     author='Incuna Ltd',
     author_email='admin@incuna.com',
