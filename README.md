@@ -1,4 +1,4 @@
-## Extensible videos for Django
+## Extensible videos for Django [![Build Status](https://travis-ci.org/incuna/incuna-videos.svg?branch=master)](https://travis-ci.org/incuna/incuna-videos) [![Coverage Status](https://img.shields.io/coveralls/incuna/incuna-videos.svg)](https://coveralls.io/r/incuna/incuna-videos?branch=master)
 
 This is an extensible videos app for Django, designed to provide a simple Video model that is extensible.
 
