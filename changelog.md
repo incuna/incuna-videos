@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## Upcoming
+
+* **Rename the `subtitle` extension to `subheading`** to better reflect its purpose. The field added to `Video` keeps the name `sub_title` for the moment.
+
 ## v2.0.0
 
 * Remove requirement of legacy closed source `django-incuna` library.
