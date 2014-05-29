@@ -16,3 +16,4 @@ class VideoFactory(factory.DjangoModelFactory):
 
     title = factory.Sequence('Video {}'.format)
     slug = factory.Sequence('video-{}'.format)
+    captions_file = 'captionfile.txt'

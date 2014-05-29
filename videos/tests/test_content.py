@@ -57,6 +57,9 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
         # Is there a link to the Source?
         source_str = '<source src="{}"'.format(source.get_absolute_url())
         self.assertIn(source_str, result)
+        # Is there a link to the captions_file (subtitles)?
+        captions_str = '<track src="{}"'.format(source.video.captions_file.url)
+        self.assertIn(captions_str, result)
         # Is there a <video> tag?
         video_str = '<video'
         self.assertIn(video_str, result)
@@ -65,3 +68,6 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
         # Is the Source within the <video> tag?
         self.assertLess(result.index(video_str), result.index(source_str))
         self.assertLess(result.index(source_str), result.index(end_video_str))
+        # Is the Caption within the <video> tag?
+        self.assertLess(result.index(video_str), result.index(captions_str))
+        self.assertLess(result.index(captions_str), result.index(end_video_str))

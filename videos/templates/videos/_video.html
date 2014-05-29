@@ -22,6 +22,9 @@
                 {% endif %}
             </a>
         {% endwith %}
+        {% if video.captions_file %}
+            <track src="{{ video.captions_file.url }}">
+        {% endif %}
     </video>
 
     {% if chapters %}
