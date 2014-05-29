@@ -16,7 +16,20 @@ class DummyPage(create_base_model()):
     """A fake class for holding content"""
 
 
+class DummyArticle(create_base_model()):
+    """Another fake class for holding content.
+
+    Used to demonstrate the effects of assigning one ContentType to two models.
+    """
+
+
 DummyPage.register_regions(('main', 'Main content area'))
 DummyPage.create_content_type(VideoContent, TYPE_CHOICES=(
+    ('block', 'Block'),
+))
+
+
+DummyArticle.register_regions(('main', 'Main content area'))
+DummyArticle.create_content_type(VideoContent, TYPE_CHOICES=(
     ('block', 'Block'),
 ))
