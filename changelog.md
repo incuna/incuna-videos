@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## Upcoming
+## v3.0.0
 
 * **Rename the `subtitle` extension to `sub_heading`** to better reflect its purpose. The field added to `Video` keeps the name `sub_title` for the moment.
 * **Introduce the `captions` extension.** This adds a `captions` FileField to Video that should reference a subtitles file. Captions are added to the `<video>` tag as a `<track>` tag where `src` points to the file.
