@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## v3.0.1
+
+* Fix regression in extension of admin classes.
+
 ## v3.0.0
 
 * **Rename the `subtitle` extension to `sub_heading`** to better reflect its purpose. The field added to `Video` keeps the name `sub_title` for the moment.

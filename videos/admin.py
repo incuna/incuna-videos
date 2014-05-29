@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from feincms.extensions import ExtensionModelAdmin
 
 from .models import Source, Video
 
@@ -24,7 +25,7 @@ class SourceInline(admin.TabularInline):
     formset = BaseSourceFormSet
 
 
-class VideoAdmin(admin.ModelAdmin):
+class VideoAdmin(ExtensionModelAdmin):
     inlines = [SourceInline]
     list_display = ['title', 'preview', 'created', 'recorded']
     search_fields = ['title']
