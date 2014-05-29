@@ -5,9 +5,10 @@ from ..models import Video
 
 
 Video.register_extensions(
+    'videos.extensions.captions',
     'videos.extensions.chapters',
     'videos.extensions.speakers',
-    'videos.extensions.subtitle',
+    'videos.extensions.sub_heading',
 )
 
 

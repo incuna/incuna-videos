@@ -1,5 +1,10 @@
 # Changelog for `incuna-videos`
 
+## Upcoming
+
+* **Rename the `subtitle` extension to `sub_heading`** to better reflect its purpose. The field added to `Video` keeps the name `sub_title` for the moment.
+* **Introduce the `captions` extension.** This adds a `captions` FileField to Video that should reference a subtitles file. Captions are added to the `<video>` tag as a `<track>` tag where `src` points to the file.
+
 ## v2.0.0
 
 * Remove requirement of legacy closed source `django-incuna` library.

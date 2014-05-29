@@ -29,6 +29,7 @@ class TestVideo(Python2CountEqualMixin, TestCase):
             'sources',  # Source model.
             'chapters',  # Chapters extension.
             'speakers',  # Speakers extension.
+            'captions_file',  # Captions extension
 
             # Tests
             'videocontent',  # VideoContent for tests
