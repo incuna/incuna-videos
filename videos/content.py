@@ -9,6 +9,8 @@ class VideoContent(models.Model):
     video = models.ForeignKey(
         'videos.Video',
         verbose_name=_('video'),
+        # Reverse related name is unused, and causes clashes, so it's gone.
+        related_name='+',
     )
 
     class Meta:

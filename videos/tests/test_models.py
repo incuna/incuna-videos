@@ -30,10 +30,6 @@ class TestVideo(Python2CountEqualMixin, TestCase):
             'chapters',  # Chapters extension.
             'speakers',  # Speakers extension.
             'captions_file',  # Captions extension
-
-            # Tests
-            'videocontent',  # VideoContent for tests
-            'videocontent_id',
         ])
 
         fields = models.Video._meta.get_all_field_names()
