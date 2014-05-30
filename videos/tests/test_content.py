@@ -76,3 +76,16 @@ class VideoContentTest(Python2CountEqualMixin, TestCase):
         # Is the Caption within the <video> tag?
         self.assertLess(result.index(video_str), result.index(captions_str))
         self.assertLess(result.index(captions_str), result.index(end_video_str))
+
+
+class TestContentAccessible(TestCase):
+    def test_object_has_content(self):
+        concrete_content_type = DummyPage.content_type_for(VideoContent)
+        content = concrete_content_type.objects.create(
+            region='main',
+            parent=DummyPage.objects.create(),
+            video=factories.VideoFactory.create(),
+        )
+
+        page = DummyPage.objects.get()
+        self.assertSequenceEqual(page.content.main, [content])

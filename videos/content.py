@@ -6,7 +6,12 @@ from django.utils.translation import ugettext_lazy as _
 
 class VideoContent(models.Model):
     """Display a video in all its glorious formats"""
-    video = models.ForeignKey('videos.Video', verbose_name=_('video'))
+    video = models.ForeignKey(
+        'videos.Video',
+        verbose_name=_('video'),
+        # Reverse related name is unused, and causes clashes, so it's gone.
+        related_name='+',
+    )
 
     class Meta:
         abstract = True

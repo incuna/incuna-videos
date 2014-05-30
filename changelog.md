@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## Upcoming
+
+* Allow VideoContent to be associated with multiple models without having reverse relation clashes. Consequently, the reverse relation to VideoContent is no longer accessible on Video.
+
 ## v3.0.1
 
 * Fix regression in extension of admin classes.
