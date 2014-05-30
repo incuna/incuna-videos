@@ -6,7 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 
 class VideoContent(models.Model):
     """Display a video in all its glorious formats"""
-    video = models.ForeignKey('videos.Video', verbose_name=_('video'))
+    video = models.ForeignKey(
+        'videos.Video',
+        verbose_name=_('video'),
+    )
 
     class Meta:
         abstract = True
