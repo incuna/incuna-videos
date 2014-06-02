@@ -1,8 +1,10 @@
 # Changelog for `incuna-videos`
 
-## Upcoming
+## v4.0.0
 
 * Allow VideoContent to be associated with multiple models without having reverse relation clashes. Consequently, the reverse relation to VideoContent is no longer accessible on Video.
+
+*Apologies for the version inflation. I'm trying to be strict about SemVer.*
 
 ## v3.0.1
 
