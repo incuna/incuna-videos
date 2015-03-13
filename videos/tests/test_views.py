@@ -1,5 +1,5 @@
-from incuna_test_utils.compat import DJANGO_LT_16, Python2CountEqualMixin
-from incuna_test_utils.testcases.request import RequestTestCase
+from incuna_test_utils.compat import DJANGO_LT_16, Python2AssertMixin
+from incuna_test_utils.testcases.request import BaseRequestTestCase
 import mock
 
 from . import factories
@@ -8,7 +8,7 @@ from videos.module.chapters.tests.factories import ChapterFactory
 from videos.module.speakers.tests.factories import SpeakerFactory
 
 
-class TestVideoList(Python2CountEqualMixin, RequestTestCase):
+class TestVideoList(Python2AssertMixin, BaseRequestTestCase):
     def test_get_empty_list(self):
         view = views.VideoList.as_view()
         response = view(self.create_request(auth=False))
@@ -26,7 +26,7 @@ class TestVideoList(Python2CountEqualMixin, RequestTestCase):
         self.assertCountEqual(response.context_data['object_list'], [video])
 
 
-class TestVideoDetail(Python2CountEqualMixin, RequestTestCase):
+class TestVideoDetail(Python2AssertMixin, BaseRequestTestCase):
     def setUp(self):
         self.video = factories.VideoFactory.create()
         self.source = factories.SourceFactory.create(video=self.video)
@@ -66,7 +66,7 @@ class TestVideoDetail(Python2CountEqualMixin, RequestTestCase):
         self.assertCountEqual(context_data, expected)
 
 
-class TestVideoListLatest(RequestTestCase):
+class TestVideoListLatest(BaseRequestTestCase):
     def test_get_list(self):
         view = views.VideoListLatest.as_view()
         with mock.patch('videos.models.Video.objects.latest') as latest_method:

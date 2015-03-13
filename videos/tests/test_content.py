@@ -1,5 +1,5 @@
 from django.test import TestCase
-from incuna_test_utils.compat import Python2CountEqualMixin
+from incuna_test_utils.compat import Python2AssertMixin
 
 from . import factories
 from .models import DummyPage
@@ -8,7 +8,7 @@ from videos.module.chapters.tests.factories import ChapterFactory
 from videos.module.speakers.tests.factories import SpeakerFactory
 
 
-class VideoContentTest(Python2CountEqualMixin, TestCase):
+class VideoContentTest(Python2AssertMixin, TestCase):
     model = DummyPage.content_type_for(VideoContent)
 
     def test_get_context_data(self):

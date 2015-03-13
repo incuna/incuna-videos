@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from incuna_test_utils.compat import (
-    Python2CountEqualMixin,
+    Python2AssertMixin,
     wipe_id_fields_on_django_lt_17,
 )
 from six import text_type
@@ -12,7 +12,7 @@ from . import factories
 from .. import models
 
 
-class TestSpeaker(Python2CountEqualMixin, TestCase):
+class TestSpeaker(Python2AssertMixin, TestCase):
     def test_fields(self):
         expected = wipe_id_fields_on_django_lt_17([
             'id',
