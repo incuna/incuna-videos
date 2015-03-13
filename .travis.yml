@@ -9,14 +9,13 @@ env:
   global:
     - DATABASE_URL='postgres://postgres@localhost/videos'
   matrix:
-    - DJANGO='django>=1.5,<1.6'
     - DJANGO='django>=1.6,<1.7'
+    - DJANGO='django>=1.7,<1.8'
 install:
   - psql -c 'CREATE DATABASE videos' -U postgres;
   - pip install -r test_requirements.txt --use-wheel
   - pip install -e . --use-wheel
   - pip install $DJANGO --use-wheel
-  - "if [[ $DJANGO == 'django>=1.5,<1.6' ]]; then pip install django-discover-runner==1.0.0; fi"
   - pip install coveralls --use-wheel
 after_success:
   coveralls
