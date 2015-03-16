@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## v5.1.0 (Upcoming)
+
+* Add `JsonVideoContent` content type for integration with `render_json` from `feincms_extensions`.
+
 ## v5.0.0
 
 * Drop explicit support for django 1.5.
