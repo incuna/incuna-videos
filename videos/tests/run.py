@@ -6,7 +6,6 @@ import sys
 from colour_runner.django_runner import ColourRunnerMixin
 import django
 from django.conf import settings
-from django.test.runner import DiscoverRunner
 import dj_database_url
 
 
@@ -39,6 +38,9 @@ try:
     django.setup()
 except AttributeError:
     pass
+
+
+from django.test.runner import DiscoverRunner
 
 
 class Runner(ColourRunnerMixin, DiscoverRunner):
