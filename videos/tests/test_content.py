@@ -102,7 +102,7 @@ class TestJsonVideoContent(TestCase):
             'recorded': video.recorded,
             'created': video.created,
         }
-        self.assertEqual(content.json(), expected)
+        self.assertEqual(content.json(request=None), expected)
 
 
 class TestContentAccessible(TestCase):
