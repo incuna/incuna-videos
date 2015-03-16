@@ -6,6 +6,7 @@ import sys
 from colour_runner.django_runner import ColourRunnerMixin
 import django
 from django.conf import settings
+from django.test.runner import DiscoverRunner
 import dj_database_url
 
 
@@ -31,17 +32,13 @@ settings.configure(
     ),
     PASSWORD_HASHERS=('django.contrib.auth.hashers.MD5PasswordHasher',),
     ROOT_URLCONF='videos.tests.urls',
+    MIDDLEWARE_CLASSES=(),
 )
 
 try:
     django.setup()
 except AttributeError:
     pass
-
-try:
-    from django.test.runner import DiscoverRunner
-except ImportError:
-    from discover_runner.runner import DiscoverRunner
 
 
 class Runner(ColourRunnerMixin, DiscoverRunner):
