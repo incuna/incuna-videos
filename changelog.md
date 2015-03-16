@@ -1,5 +1,10 @@
 # Changelog for `incuna-videos`
 
+## v5.0.0
+
+* Drop explicit support for django 1.5.
+* Update requirements to latest versions.
+
 ## v4.0.0
 
 * Allow VideoContent to be associated with multiple models without having reverse relation clashes. Consequently, the reverse relation to VideoContent is no longer accessible on Video.
