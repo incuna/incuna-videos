@@ -31,6 +31,7 @@ settings.configure(
     ),
     PASSWORD_HASHERS=('django.contrib.auth.hashers.MD5PasswordHasher',),
     ROOT_URLCONF='videos.tests.urls',
+    MIDDLEWARE_CLASSES=(),
 )
 
 try:
@@ -38,10 +39,8 @@ try:
 except AttributeError:
     pass
 
-try:
-    from django.test.runner import DiscoverRunner
-except ImportError:
-    from discover_runner.runner import DiscoverRunner
+
+from django.test.runner import DiscoverRunner
 
 
 class Runner(ColourRunnerMixin, DiscoverRunner):

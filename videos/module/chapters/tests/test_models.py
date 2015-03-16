@@ -4,7 +4,7 @@ import datetime
 
 from django.test import TestCase
 from incuna_test_utils.compat import (
-    Python2CountEqualMixin,
+    Python2AssertMixin,
     wipe_id_fields_on_django_lt_17,
 )
 import six
@@ -13,7 +13,7 @@ from . import factories
 from .. import models
 
 
-class TestChapter(Python2CountEqualMixin, TestCase):
+class TestChapter(Python2AssertMixin, TestCase):
     model = models.Chapter
 
     def test_fields(self):

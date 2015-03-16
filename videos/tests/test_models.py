@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from incuna_test_utils.compat import (
-    Python2CountEqualMixin,
+    Python2AssertMixin,
     wipe_id_fields_on_django_lt_17,
 )
 from six import text_type
@@ -12,7 +12,7 @@ from .factories import SourceFactory, VideoFactory
 from .. import models
 
 
-class TestVideo(Python2CountEqualMixin, TestCase):
+class TestVideo(Python2AssertMixin, TestCase):
     def test_fields(self):
         expected_fields = wipe_id_fields_on_django_lt_17([
             'id',
@@ -71,7 +71,7 @@ class TestVideoUnicode(TestCase):
         self.assertEqual(text_type(video), expected)
 
 
-class TestSource(Python2CountEqualMixin, TestCase):
+class TestSource(Python2AssertMixin, TestCase):
     def test_fields(self):
         expected_fields = (
             'id',
