@@ -3,7 +3,7 @@ from incuna_test_utils.compat import Python2AssertMixin
 
 from . import factories
 from .models import DummyPage
-from ..content import VideoContent
+from ..content import JsonVideoContent, VideoContent
 from videos.module.chapters.tests.factories import ChapterFactory
 from videos.module.speakers.tests.factories import SpeakerFactory
 
@@ -76,6 +76,33 @@ class VideoContentTest(Python2AssertMixin, TestCase):
         # Is the Caption within the <video> tag?
         self.assertLess(result.index(video_str), result.index(captions_str))
         self.assertLess(result.index(captions_str), result.index(end_video_str))
+
+
+class TestJsonVideoContent(TestCase):
+    model = DummyPage.content_type_for(JsonVideoContent)
+
+    def test_json(self):
+        """A JsonVideoContent can be rendered to json."""
+        video = factories.VideoFactory.create()
+        sources = factories.SourceFactory.create_batch(2, video=video)
+        content = self.model(video=video)
+
+        def source_json(source):
+            return {
+                'file': source.file.url,
+                'type': source.type,
+            }
+
+        expected = {
+            'sources': [source_json(source) for source in sources],
+            'title': video.title,
+            'slug': video.slug,
+            'preview': video.preview.url,
+            'length': video.length,
+            'recorded': video.recorded,
+            'created': video.created,
+        }
+        self.assertEqual(content.json(), expected)
 
 
 class TestContentAccessible(TestCase):

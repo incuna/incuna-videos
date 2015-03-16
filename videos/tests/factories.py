@@ -17,3 +17,4 @@ class VideoFactory(factory.DjangoModelFactory):
     title = factory.Sequence('Video {}'.format)
     slug = factory.Sequence('video-{}'.format)
     captions_file = 'captionfile.txt'
+    preview = factory.django.FileField(from_path='videos/tests/files/image.png')

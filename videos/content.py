@@ -61,3 +61,29 @@ class VideoContent(models.Model):
             self.get_context_data(**kwargs),
             context_instance=kwargs.get('context'),
         )
+
+
+class JsonVideoContent(VideoContent):
+    class Meta(VideoContent.Meta):
+        abstract = True
+
+    def json(self):
+        """Return a json serializable representation of the video."""
+        video = self.video
+
+        def source_json(source):
+            """Return a json serializable representation of a video source."""
+            return {
+                'file': source.file.url,
+                'type': source.type,
+            }
+
+        return {
+            'created': video.created,
+            'length': video.length,
+            'preview': video.preview.url,
+            'recorded': video.recorded,
+            'slug': video.slug,
+            'sources': [source_json(source) for source in video.sources.all()],
+            'title': video.title,
+        }
