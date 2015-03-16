@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## v5.1.1 (Upcoming)
+## v5.1.1
 
 * Fix `JsonVideoContent.json` to accept `**kwargs`.
 
