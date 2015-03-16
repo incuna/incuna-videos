@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    version='5.0.0',
+    version='5.1.0',
     name='incuna-videos',
     packages=find_packages(),
     include_package_data=True,

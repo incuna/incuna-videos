@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## v5.1.0 (Upcoming)
+## v5.1.0
 
 * Add `JsonVideoContent` content type for integration with `render_json` from `feincms_extensions`.
 
