@@ -1,6 +1,6 @@
 from feincms.models import create_base_model
 
-from ..content import VideoContent
+from ..content import JsonVideoContent, VideoContent
 from ..models import Video
 
 
@@ -18,5 +18,8 @@ class DummyPage(create_base_model()):
 
 DummyPage.register_regions(('main', 'Main content area'))
 DummyPage.create_content_type(VideoContent, TYPE_CHOICES=(
+    ('block', 'Block'),
+))
+DummyPage.create_content_type(JsonVideoContent, TYPE_CHOICES=(
     ('block', 'Block'),
 ))
