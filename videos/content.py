@@ -67,7 +67,7 @@ class JsonVideoContent(VideoContent):
     class Meta(VideoContent.Meta):
         abstract = True
 
-    def json(self):
+    def json(self, **kwargs):
         """Return a json serializable representation of the video."""
         video = self.video
 

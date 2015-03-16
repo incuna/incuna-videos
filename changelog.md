@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## v5.1.1 (Upcoming)
+
+* Fix `JsonVideoContent.json` to accept `**kwargs`.
+
 ## v5.1.0
 
 * Add `JsonVideoContent` content type for integration with `render_json` from `feincms_extensions`.
