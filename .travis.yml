@@ -19,3 +19,12 @@ install:
   - pip install coveralls --use-wheel
 after_success:
   coveralls
+deploy:
+  provider: pypi
+  user: incuna
+  on:
+    condition: $DJANGO='django>=1.7,<1.8'
+    tags: true
+  password:
+    secure: YIczbZbzUDFTPUJ5Df45AoaglRrIKn4Xbs/I4zGPXCzNDPL2l8VsEoP+RhmlmnkzMnRiVUznLCMB3WcGTU8x/2nOg4o62DyJROZV8qGJwNDVX4PnG+cqYUGGHBFiM/FQ76e2oSmzP4YuiqMVsrt4m8yrIzDwbfQLBtSFG+hUuio=
+  distributions: sdist bdist_wheel
