@@ -79,6 +79,7 @@ class JsonVideoContent(VideoContent):
             }
 
         return {
+            'content_type': 'video',
             'created': video.created,
             'length': video.length,
             'preview': video.preview.url,

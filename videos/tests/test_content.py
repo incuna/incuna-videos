@@ -94,6 +94,7 @@ class TestJsonVideoContent(TestCase):
             }
 
         expected = {
+            'content_type': 'video',
             'sources': [source_json(source) for source in sources],
             'title': video.title,
             'slug': video.slug,
