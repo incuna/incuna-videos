@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## v5.1.2 (Upcoming)
+## v5.1.2
 
 * Add `content_type` key to `JsonVideoContent.json`.
 
