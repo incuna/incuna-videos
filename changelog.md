@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## v5.1.2 (Upcoming)
+
+* Add `content_type` key to `JsonVideoContent.json`.
+
 ## v5.1.1
 
 * Fix `JsonVideoContent.json` to accept `**kwargs`.
