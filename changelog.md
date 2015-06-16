@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## v6.0.0 (Upcoming)
+## v6.0.0
 
 * Update factories to use `class Meta:` instead of `FACTORY_FOR`.
 
