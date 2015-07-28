@@ -1,6 +1,6 @@
 # Changelog for `incuna-videos`
 
-## v6.0.1 (Upcoming)
+## v6.0.1
 
 * Add `id` key to `JsonVideoContent.json`.
 
