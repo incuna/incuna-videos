@@ -1,5 +1,9 @@
 # Changelog for `incuna-videos`
 
+## v6.0.1 (Upcoming)
+
+* Add `id` key to `JsonVideoContent.json`.
+
 ## v6.0.0
 
 * Update factories to use `class Meta:` instead of `FACTORY_FOR`.
