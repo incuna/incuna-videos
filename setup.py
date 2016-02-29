@@ -7,8 +7,8 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'FeinCMS>=1.10,<1.11',
-        'django-imagekit>=3.2.1,<3.3',
+        'FeinCMS>=1.11,<1.12',
+        'django-imagekit>=3.3,<3.4',
     ],
     description='Generic extensible video content.',
     author='Incuna Ltd',

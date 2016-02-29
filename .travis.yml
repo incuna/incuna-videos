@@ -1,7 +1,7 @@
 language: python
 python:
   - "2.7"
-  - "3.3"
+  - "3.4"
 script: make test
 notifications:
   email: false
@@ -9,13 +9,13 @@ env:
   global:
     - DATABASE_URL='postgres://postgres@localhost/videos'
   matrix:
-    - DJANGO='django>=1.6,<1.7'
-    - DJANGO='django>=1.7,<1.8'
+    - DJANGO='django~=1.8.0'
+    - DJANGO='django~=1.9.0'
 install:
   - psql -c 'CREATE DATABASE videos' -U postgres;
-  - pip install -r test_requirements.txt --use-wheel
-  - pip install -e . --use-wheel
-  - pip install $DJANGO --use-wheel
-  - pip install coveralls --use-wheel
+  - pip install -r test_requirements.txt
+  - pip install -e .
+  - pip install $DJANGO
+  - pip install coveralls
 after_success:
   coveralls

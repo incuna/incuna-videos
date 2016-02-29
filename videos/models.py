@@ -16,7 +16,7 @@ class VideoManager(models.Manager):
     def latest(self, limit=None):
         if limit is None:
             limit = getattr(settings, 'VIDEOS_LATEST_LIMIT', DEFAULT_LATEST_LIMIT)
-        return self.get_query_set()[:limit]
+        return self.get_queryset()[:limit]
 
 
 @python_2_unicode_compatible
