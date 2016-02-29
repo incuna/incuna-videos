@@ -4,6 +4,7 @@ import datetime
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from feincms.extensions import ExtensionsMixin
@@ -37,7 +38,7 @@ class Video(models.Model, ExtensionsMixin):
     preview = models.FileField(max_length=255, upload_to='videos/preview', null=True, blank=True, help_text=_('Preview image for this video.'))
     length = models.TimeField(blank=True, null=True, help_text='hh:mm:ss')
     recorded = models.DateField(blank=True, null=True)
-    created = models.DateTimeField(editable=False, default=datetime.datetime.now)
+    created = models.DateTimeField(editable=False, default=timezone.now)
 
     objects = VideoManager()
 
