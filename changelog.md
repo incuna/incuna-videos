@@ -6,6 +6,7 @@
 * Drop support for Django 1.6 and 1.7.
 * Drop support for python 3.3.
 * Update required versions of `FeinCMS` and `django-imagekit`.
+* Use `timezone.now` as a default for `Video.created`.
 
 ## v6.0.1
 
